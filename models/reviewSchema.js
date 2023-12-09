@@ -7,7 +7,7 @@ const reviewSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         required: true,
   },
-  
+
   review: {
         type: String,
         required : true
@@ -26,13 +26,18 @@ const reviewSchema = mongoose.Schema({
   },
 
   upvotes:{
-    type: Integer,
+    type: Number,
     default: 0,
   },
 
   downvotes:{
-    type: Integer,
+    type: Number,
     default: 0,
+  },
+
+  score:{
+    type: Number,
+    default:0,
   }
  
 });
