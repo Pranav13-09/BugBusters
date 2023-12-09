@@ -1,4 +1,3 @@
-
 import connectDB from "../../utils/connectDB";
 
 const user = async (req, res) => {
