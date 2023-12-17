@@ -1,28 +1,43 @@
 import { hash } from "bcrypt";
-const { Author, SubjectExpert, User } = require("../../../../models");
+import mongoose from "mongoose"
+import Author from "../../../../models/authorSchema"
+import User from "../../../../models/userSchema"
+import SubjectExpert from "@/models/subjectExpertSchema";
+import connectDB from "@/utils/connectDB";
 
-export default async function register(req, res) {
+
+const register = async(req, res) =>{
   try {
     const { name, email, password, type } = req.body;
+    console.log(name,email,password,type,"i am here")
 
     const author = await Author.findOne({ email });
     const subjectExpert = await SubjectExpert.findOne({ email });
     const user = await User.findOne({ email });
     if (author || subjectExpert || user) {
-      return res.json({ error: "Email already exists" });
+      console.log(author,"ok",subjectExpert,"ok1",user,"here")
+      console.log("error found duplicate")
+      return res.status(200).json({ error: "Email already exists" });
     }
-
     const hashedPassword = await hash(password, 10);
+    console.log(hashedPassword,"i am hashed")
+    const Id = new mongoose.Types.ObjectId();
+    console.log("below here")
     if (type === "author") {
-      await Author.create({ name, email, hashedPassword });
+      await Author.create({ _id : Id, name, email, password : hashedPassword });
     } else if (type === "subjectExpert") {
-      await SubjectExpert.create({ name, email, hashedPassword });
+      await SubjectExpert.create({ _id : Id, name, email, password : hashedPassword });
     } else {
-      await User.create({ name, email, hashedPassword });
+      console.log("creating")
+      await User.create({ _id : Id, name, email, password : hashedPassword });
     }
+    console.log("sucessful okk")
+    return res.status(200).json({message:"Created Sucessfilly"})
   } catch (e) {
-    console.log({ e });
+    console.log(e);
+    return res.status(400).json({error:"Some error occured"})
   }
 
-  return res.json({ message: "success" });
 }
+
+export default connectDB(register);

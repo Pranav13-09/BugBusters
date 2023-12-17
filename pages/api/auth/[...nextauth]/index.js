@@ -1,47 +1,88 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { compare } from "bcrypt";
-const { Author, SubjectExpert, User } = require("../../../../models");
+import Author from "../../../../models/authorSchema"
+import User from "../../../../models/userSchema"
+import SubjectExpert from "@/models/subjectExpertSchema";
+import connectDB from "@/utils/connectDB";
+import { verifyPassword } from "@/utils/auth";
 
-const handler = NextAuth({
+export const authOptions  = NextAuth({
   session: {
     strategy: "jwt",
   },
   pages: {
-    signIn: "/login",
+    signIn: "/home",
+    register : "/home"
   },
   providers: [
+ 
     CredentialsProvider({
-      credentials: {
-        email: {},
-        password: {},
-        type: {},
-      },
-      async authorize(credentials, req) {
-        const { email, password, type } = credentials;
-
-        let response;
-        if (type === "user") {
-          response = await User.findOne({ email });
+       
+       name: "Credentials",
+       
+       async authorize(credentials, req) {
+         const { email, password, type } = credentials;
+         console.log(email,password,type,"i am here")
+        let netizen;
+         if (type === "user") {
+          console.log("here in user")
+           netizen = await User.findOne({ email });
+           console.log("okk")
+           console.log(netizen,"i am netizen")
         } else if (type === "author") {
-          response = await Author.findOne({ email });
+          netizen = await Author.findOne({ email });
         } else {
-          response = await SubjectExpert.findOne({ email });
-        }
+          netizen = await SubjectExpert.findOne({ email });
+         }
+         
+         console.log(netizen ,"ia m here")
 
-        const passwordCorrect = await compare(password, response.password);
+         if (netizen) {
+          console.log("why bro why")
+          // Any object returned will be saved in `user` property of the JWT
+          const isValid = await verifyPassword(
+          password,
+            netizen.password
+          );
 
-        if (passwordCorrect) {
+          console.log(isValid,"i am here")
+
+          if (!isValid) {
+            return null;
+          }
+
           return {
-            id: response.id,
-            email: response.email,
+            email:netizen.email,
+            username: netizen.username,
+            userId:netizen._id,
+            role : type,
           };
+        } else {
+          console.log("i am from here okk")
+          return null;
         }
-
-        return null;
       },
+       
     }),
   ],
+   callbacks: {
+    session: async (session) => {
+      if (!session) return;
+
+      const userData = await User.findOne({
+        email: session.session.user.email,
+      });
+
+      return {
+        user: {
+          id: userData._id,
+          email: userData.email,
+          role: "user"
+
+        },
+      };
+    },
+  },
 });
 
-export default handler;
+export default connectDB(authOptions);
