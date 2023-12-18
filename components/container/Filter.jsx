@@ -123,52 +123,28 @@ const Filter = () => {
                         className={`py-3 px-5 ${selectedCategories.includes('Blouses') ? "bg-purple-50":""}`}
                         onClick={() => toggleCategory('Blouses')}
                     >
-                        Blouses
+                        Languages
                     </span>
                     <span
                         className={`py-3 px-5 ${selectedCategories.includes('Shirt') ? "bg-purple-50":""}`}
                         onClick={() => toggleCategory('Shirt')}
                     >
-                        Shirt
+                        Ratings
                     </span>
                     <span 
                     className={`py-3 px-5 ${selectedCategories.includes('Denim&Jeans') ? 'bg-purple-50' : ''}`}
                     onClick={() => toggleCategory('Denim&Jeans')}
                     >
-                        Denim&Jeans
+                        Authors
                     </span>
                     <span 
                         className={`py-3 px-5 ${selectedCategories.includes('Party') ? 'bg-purple-50' : ''}`}
                         onClick={() => toggleCategory('Party')}
                     >
-                    Party
-                    </span>
-                    <span 
-                        className={`py-3 px-5 ${selectedCategories.includes('Pants') ? 'bg-purple-50' : ''}`}
-                        onClick={() => toggleCategory('Pants')}
-                    >
-                        Pants
-                    </span>
-                    <span 
-                        className={`py-3 px-5 ${selectedCategories.includes('Skirts') ? 'bg-purple-50' : ''}`}
-                        onClick={() => toggleCategory('Skirts')}
-                    >
-                        Skirts
-                    </span>
-                    <span 
-                        className={`py-3 px-5 ${selectedCategories.includes('Tops&tees') ? 'bg-purple-50' : ''}`}
-                        onClick={() => toggleCategory('Tops&tees')}
-                    >
-                        Tops&tees
-                    </span>
-                    <span 
-                        className={`py-3 px-5 ${selectedCategories.includes('Jackets&Coats') ? 'bg-purple-50' : ''}`}
-                        onClick={() => toggleCategory('Jackets&Coats')}
-                    >
-                        Jackets&Coats
+                        New Released
                     </span>
                 </div>
-                <div className='border-b-[0.5px] pb-10'>
+                {/* <div className='border-b-[0.5px] pb-10'>
                     <div className='flex items-center justify-between px-5 py-4 border-b-[0.5px] mb-5'>
                         <h1 className='text-neutral-800'>Prices</h1>
                         <BsChevronUp size={18} className = 'text-neutral-600' />
@@ -251,7 +227,8 @@ const Filter = () => {
                     </ul>
                 </div>
             </div>
-        <div onClick={() => setShowFilter(!showFilter)} className='absolute md:hidden top-[20px] right-[-42px] rotate-90 bg-gray-100 px-2 rounded-t-sm cursor-pointer'>Filters</div>
+        <div onClick={() => setShowFilter(!showFilter)} className='absolute md:hidden top-[20px] right-[-42px] rotate-90 bg-gray-100 px-2 rounded-t-sm cursor-pointer'>Filters</div> */}
+        </div>
         </div>
     )
 }

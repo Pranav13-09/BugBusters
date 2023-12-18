@@ -6,7 +6,8 @@ import {BsChevronCompactUp} from "react-icons/bs"
 import {BiSearch} from "react-icons/bi"
 import SearchBar from './SearchBar'
 import {signIn, signOut, useSession } from 'next-auth/react'
-
+import { FaHeart } from "react-icons/fa";
+import Image from 'next/image'
 
 const Navbar = () => {
     const [showProfile, setShowProfile] = useState(false)
@@ -31,11 +32,11 @@ const Navbar = () => {
         )
     }
   return (
-    <div>
+    <div style={{backgroundColor:"#EEF5FF"}}>
         <div className='flex items-center justify-between py-4 relative'>
-            <div className='flex items-center md:space-x-10 lg:space-x-20'>
-                <div className='font-semibold text-2xl'><a href="/">SEINE</a></div>
-                <nav className='max-md:hidden'>
+            <div className='flex items-center md:space-x-10 lg:space-x-20' style={{display:"flex",alignItems:"center", justifyContent:"center"}}>
+                <div className='font-semibold text-2xl' style={{display:"flex",alignItems:"center", justifyContent:"center"}}><img src={`/logo.png `} width={150} height={150} alt="" /></div>
+                {/* <nav className='max-md:hidden'>
                     <ul className='flex items-center lg:space-x-10 space-x-7 opacity-70 text-[15px]'>
                         <li><a href="/" className='py-3 inline-block w-full'>Shop</a></li>
                         <li><a href="filters" className='py-3 inline-block w-full'>Filters</a></li>
@@ -43,23 +44,23 @@ const Navbar = () => {
                         <li><a href="myproducts" className='py-3 inline-block w-full'>My Products</a></li>
                         )}
                     </ul>
-                </nav>
+                </nav> */}
             </div>
             <div className='flex items-center space-x-4'>
                 <SearchBar/>
                 <div onClick={() => setShowProfile(!showProfile)} className='relative cursor-pointer'>
-                    <img src="user.jpg" className='w-[35px] h-[35px] rounded-full object-cover' alt="" />
+                    <img src={`user.png`} className='w-[35px] h-[35px] rounded-full object-cover' alt="" />
                     <div className={`absolute bg-white z-[2] rounded-lg shadow-lg ${showProfile ? "":"hidden"}`}>
                         <SignOut/>
                     </div>
                 </div>
                 {session?.user ? (
                     <Link href='/cart'>
-                        <div className='p-2 bg-gray-100 rounded-full'><CiShoppingCart size={20} /></div>
+                        <div className='p-2 bg-gray-100 rounded-full'><FaHeart size={20} /></div>
                     </Link>
                     ) : (
                     <Link href='/signin'>
-                        <div className='p-2 bg-gray-100 rounded-full'><CiShoppingCart size={20} /></div>
+                        <div className='p-2 bg-gray-100 rounded-full'><FaHeart size={20} /></div>
                     </Link>
                     )}
                 <span onClick={() => setShowNav(!showNav)} className='p-[9px] bg-gray-100 rounded-full md:hidden'>
