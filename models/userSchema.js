@@ -21,7 +21,11 @@ const userSchema = mongoose.Schema({
     role: {
     type: String,
     default :"user"
-  }
+  },
+  rating: {
+    type: Number,
+    default:1
+    }
 });
 
 export default mongoose.models.User || mongoose.model("User", userSchema);
