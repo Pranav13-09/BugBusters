@@ -1,8 +1,9 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import Author from "../../../../models/authorSchema"
 import User from "../../../../models/userSchema"
+import Committee from "../../../../models/committeeSchema"
 import SubjectExpert from "@/models/subjectExpertSchema";
+import Author from "../../../../models/authorSchema"
 import connectDB from "@/utils/connectDB";
 import { verifyPassword } from "@/utils/auth";
 
@@ -11,8 +12,8 @@ export const authOptions  = NextAuth({
     strategy: "jwt",
   },
   pages: {
-    signIn: "/home",
-    register : "/home"
+    signIn: "/",
+    register : "/"
   },
   providers: [
  
@@ -31,8 +32,10 @@ export const authOptions  = NextAuth({
            console.log(netizen,"i am netizen")
         } else if (type === "author") {
           netizen = await Author.findOne({ email });
-        } else {
+        } else if(type =="subjectExpert") {
           netizen = await SubjectExpert.findOne({ email });
+         } else {
+             netizen = await Committee.findOne({ email });
          }
          
          console.log(netizen ,"ia m here")
@@ -67,17 +70,37 @@ export const authOptions  = NextAuth({
   ],
    callbacks: {
     session: async (session) => {
-      if (!session) return;
-
-      const userData = await User.findOne({
+       if (!session) return;
+       console.log(session,"i am session")
+       console.log(session.session.user.email, "i am the required mail")
+       let userData;
+       userData = await User.findOne({
         email: session.session.user.email,
       });
-
+       if (!userData) {
+         userData = await Committee.findOne({
+           email: session.session.user.email,
+         });
+       }
+         
+       if (!userData) {
+        userData = await SubjectExpert.findOne({
+        email: session.session.user.email,
+        });
+         
+         }
+         
+         if (!userData) {
+        userData = await Author.findOne({
+        email: session.session.user.email,
+        });
+         
+       }
       return {
         user: {
           id: userData._id,
           email: userData.email,
-          role: "user"
+          role: userData.role
         },
       };
     },

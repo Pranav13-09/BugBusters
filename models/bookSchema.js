@@ -53,7 +53,10 @@ const bookSchema = mongoose.Schema({
 
     },
   ],
-
+  approved: {
+    type: Boolean,
+    default : false
+  }
 
 });
 

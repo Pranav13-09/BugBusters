@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import Author from "../../../../models/authorSchema";
 import User from "../../../../models/userSchema";
 import SubjectExpert from "@/models/subjectExpertSchema";
+import Committee from "../../../../models/committeeSchema"
 import connectDB from "@/utils/connectDB";
 
 const register = async (req, res) => {
@@ -13,7 +14,9 @@ const register = async (req, res) => {
     const author = await Author.findOne({ email });
     const subjectExpert = await SubjectExpert.findOne({ email });
     const user = await User.findOne({ email });
-    if (author || subjectExpert || user) {
+    const committee = await Committee.findOne({email})
+
+    if (author || subjectExpert || user || committee) {
       console.log(author, "ok", subjectExpert, "ok1", user, "here");
       console.log("error found duplicate");
       return res.status(200).json({ error: "Email already exists" });
@@ -31,9 +34,11 @@ const register = async (req, res) => {
         email,
         password: hashedPassword,
       });
-    } else {
+    } else if(type ==="user") {
       console.log("creating");
       await User.create({ _id: Id, name, email, password: hashedPassword });
+    } else {
+      await Committee.create({_id: Id, name, email, password: hashedPassword})
     }
     console.log("sucessful okk");
     return res.status(200).json({ message: "Created Sucessfilly" });
