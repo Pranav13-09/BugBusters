@@ -1,6 +1,6 @@
 
 import mongoose from "mongoose";
-const reviewSchema = mongoose.Schema({
+const ExpertReviewSchema = mongoose.Schema({
   _id: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
@@ -9,9 +9,9 @@ const reviewSchema = mongoose.Schema({
         type: String,
         required : true
   },
-  reviewer_id: {
+  expert_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
+        ref: "SubjectExpert",
         required : true
   },
   book_id:{
