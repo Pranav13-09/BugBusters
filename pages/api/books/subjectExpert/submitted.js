@@ -9,9 +9,8 @@ const submitted = async (req, res) => {
     if (!reviewer) {
       return res.status(400).json({ error: "Not authorized" });
     }
-
     const submittedBooks = await Book.find({ status: 1 });
-    res.json({ books: submittedBooks });
+    res.status(200).json({ books: submittedBooks });
   } catch (e) {
     console.log(e);
     return res.status(400).json({ error: "Some error occured" });

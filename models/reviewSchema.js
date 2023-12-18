@@ -7,7 +7,6 @@ const reviewSchema = mongoose.Schema({
   },
   review: {
         type: String,
-        required : true
   },
   reviewer_id: {
         type: mongoose.Schema.Types.ObjectId,
@@ -19,15 +18,17 @@ const reviewSchema = mongoose.Schema({
         ref: "Book",
         required : true
   },
-
   upvotes:{
     type: Integer,
     default: 0,
   },
-
   downvotes:{
     type: Integer,
     default: 0,
+ },
+ rating: {
+    type: Integer,
+   required:true
   }
  
 });
