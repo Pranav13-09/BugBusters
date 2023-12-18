@@ -1,20 +1,24 @@
 import axios from "axios";
 
+
 export default function register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const response = await axios.post(`/api/auth/register`, {
+    try{
+      console.log("I am sending")
+        const response = await axios.post(`/api/auth/register`, {
       name: formData.get("name"),
       email: formData.get("email"),
       password: formData.get("password"),
       type: formData.get("type"),
     });
-
-    if (!response?.error) {
-      router.push("/");
-      router.refresh();
+    console.log("I am sent")
+    console.log(response,"i am response")
+    }catch(e){
+      console.log(e,"i am error")
     }
+ 
   };
 
   return (

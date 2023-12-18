@@ -1,48 +1,44 @@
 import { signIn } from "next-auth/react";
+import React, { useState } from "react";
 
 export default function login() {
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const response = await signIn("credentials", {
-      email: formData.get("email"),
-      password: formData.get("password"),
-      type: formData.get("type"),
-      redirect: false,
-    });
 
-    if (!response?.error) {
-      router.push("/");
-      router.refresh();
+      const [email, setEmail] = useState('');
+    const [pass, setPass] = useState('');
+    const [user, setUser] = useState('');
+
+    const handleSubmit = async(e) => {
+        e.preventDefault();
+        console.log(email, pass, user);
+          const response = await signIn("credentials", {
+      email: email,
+      password: pass ,
+      user:user ,
+    });
+    console.log(response,"i am here")
     }
-  };
+
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col w-full items-center">
-      <div>Login</div>
-      <input name="email" type="email" className="w-80 border border-black" />
-      <input
-        name="password"
-        type="password"
-        className="w-80 border border-black"
-      />
-
-      <div className="flex">
-        <input name="type" type="radio" id="user" value="user" />
-        <label htmlFor="user">User</label>
-      </div>
-
-      <div className="flex">
-        <input name="type" type="radio" id="author" value="author" />
-        <label htmlFor="author">Author</label>
-      </div>
-
-      <div className="flex">
-        <input name="type" type="radio" id="expert" value="expert" />
-        <label htmlFor="expert">Subject Expert</label>
-      </div>
-
-      <button>Submit</button>
-    </form>
+   <div className="auth-form-container">
+            <h2>Login to Your Account</h2>
+            <form className="login-form" onSubmit={handleSubmit}>
+                <label htmlFor="email">Email</label>
+                <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="youremail@gmail.com" id="email" name="email" />
+                <label htmlFor="password">Password</label>
+                <input value={pass} onChange={(e) => setPass(e.target.value)} type="password" placeholder="********" id="password" name="password" />
+                <label htmlFor="userRole">User Role</label>
+                <select value={user} onChange={(e) => setUser(e.target.value)} id="userRole" name="userRole">
+                    <option value="" disabled>Select user role</option>
+                    <option value="admin">Admin</option>
+                    <option value="user">User</option>
+                </select>
+                <div className="forgot-password-link">
+                <a href="#">Forgot your password?</a>
+            </div>
+                <button type="submit">Login</button>
+            </form>
+            <button className="link-btn" onClick={() => props.onFormSwitch('register')}>Don't have an account? Register here.</button>
+        </div>
   );
 }
