@@ -29,11 +29,11 @@ export default function login(props) {
   
     }
 
-     useEffect(() => {
-    if (status === 'authenticated') {
-      router.push('/authenticated'); // Redirect to '/authenticated' route upon successful authentication
-    }
-  }, [status, router]);
+  //    useEffect(() => {
+  //   if (status === 'authenticated') {
+  //     router.push('/authenticated'); // Redirect to '/authenticated' route upon successful authentication
+  //   }
+  // }, [status, router]);
 
 
   return (
@@ -54,7 +54,7 @@ export default function login(props) {
                 <div className="forgot-password-link">
                 <a href="#">Forgot your password?</a>
             </div>
-                <button type="submit">Login</button>
+                <button type="submit" classname="submit1" >Login</button>
             </form>
             <button className="link-btn" onClick={() => props.onFormSwitch('register')}>Don't have an account? Register here.</button>
         </div>

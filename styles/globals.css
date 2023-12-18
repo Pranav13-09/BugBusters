@@ -108,7 +108,7 @@ button:hover {
   color: #4682a9;
 }
 
-button[type="submit"] {
+.submit1 {
   font-size: 20px; /* Adjust the font size to your desired value */
   font-family: "Hedvig Letters Sans", sans-serif;
 }

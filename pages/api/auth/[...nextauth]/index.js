@@ -78,7 +78,6 @@ export const authOptions  = NextAuth({
           id: userData._id,
           email: userData.email,
           role: "user"
-
         },
       };
     },
