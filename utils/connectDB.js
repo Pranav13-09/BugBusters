@@ -7,10 +7,7 @@ const connectDB = (handler) => async (req, res) => {
 
   console.log(process.env.MONGODB_URI);
 
-  await mongoose.connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
+  await mongoose.connect(process.env.MONGODB_URI);
 
   return handler(req, res);
 };

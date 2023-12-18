@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const CommitteeSchema = mongoose.Schema({
+const committeeSchema = mongoose.Schema({
   _id: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
@@ -17,12 +17,12 @@ const CommitteeSchema = mongoose.Schema({
   password: {
     type: String,
     required: true,
-    },
-    role: {
+  },
+  role: {
     type: String,
-    default :"committee"
-  }
+    default: "committee",
+  },
 });
 
 export default mongoose.models.Committee ||
-  mongoose.model("Committee", CommitteeSchema);
+  mongoose.model("Committee", committeeSchema);

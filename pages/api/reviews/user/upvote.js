@@ -5,7 +5,6 @@ import Review from "@/models/reviewSchema";
 
 const user = async (req, res) => {
   try {
-     
       const { reviewId,userId,type} = req.body;
       const currUser = await User.find(userId);
       if (!currUser) {
@@ -26,9 +25,7 @@ const user = async (req, res) => {
       await currReview.save();
       await Ruser.save()
 
-
-
-      return res.status(200).json({ message:"Review Added Successfully"})
+      return res.status(200).json({ message:"Upvoted Sucessfully"})
 
   } catch (err) {
     console.log(err, "i am error");
