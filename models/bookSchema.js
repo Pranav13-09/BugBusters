@@ -1,6 +1,4 @@
-
 import mongoose from "mongoose";
-
 
 const bookSchema = mongoose.Schema({
   _id: {
@@ -8,10 +6,8 @@ const bookSchema = mongoose.Schema({
     required: true,
   },
   name: {
-        type: String,
-        required : true
+
   },
- 
 });
 
-export default mongoose.models.Book || mongoose.model('Book', bookSchema);
+export default mongoose.models.Book || mongoose.model("Book", bookSchema);
