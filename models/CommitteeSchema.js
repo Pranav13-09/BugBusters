@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const subjectExpertSchema = mongoose.Schema({
+const CommitteeSchema = mongoose.Schema({
   _id: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
@@ -17,12 +17,12 @@ const subjectExpertSchema = mongoose.Schema({
   password: {
     type: String,
     required: true,
-  },
+    },
     role: {
     type: String,
-    default :"expert"
+    default :"committee"
   }
 });
 
-export default mongoose.models.SubjectExpert ||
-  mongoose.model("SubjectExpert", subjectExpertSchema);
+export default mongoose.models.Committee ||
+  mongoose.model("Committee", CommitteeSchema);
