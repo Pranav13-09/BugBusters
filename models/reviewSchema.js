@@ -19,18 +19,12 @@ const reviewSchema = mongoose.Schema({
         required : true
   },
   upvotes:{
-    type: Integer,
+    type: Number,
     default: 0,
   },
   downvotes:{
-    type: Integer,
+    type: Number,
     default: 0,
- },
- rating: {
-    type: Integer,
-   required:true
-  }
- 
 });
 
 export default mongoose.models.Review || mongoose.model('Review', reviewSchema);
