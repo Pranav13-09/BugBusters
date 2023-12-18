@@ -2,8 +2,8 @@
 import mongoose from "mongoose";
 const reviewSchema = mongoose.Schema({
   _id: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
+      type: mongoose.Schema.Types.ObjectId,
+      required : true
   },
   review: {
         type: String,
@@ -19,15 +19,15 @@ const reviewSchema = mongoose.Schema({
         required : true
   },
   upvotes:{
-    type: Integer,
+    type: Number,
     default: 0,
   },
   downvotes:{
-    type: Integer,
+    type: Number,
     default: 0,
  },
  rating: {
-    type: Integer,
+    type: Number,
    required:true
   }
  

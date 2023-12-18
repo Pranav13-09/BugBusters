@@ -21,12 +21,12 @@ const ExpertReviewSchema = mongoose.Schema({
   },
 
   upvotes:{
-    type: Integer,
+    type: Number,
     default: 0,
   },
 
   downvotes:{
-    type: Integer,
+    type: Number,
     default: 0,
   }
  

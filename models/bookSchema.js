@@ -14,7 +14,7 @@ const bookSchema = mongoose.Schema({
     required: true,
   },
   status: {
-    type: Integer,
+    type: Number,
   },
   author_id: {
      type: mongoose.Schema.Types.ObjectId,
@@ -29,12 +29,14 @@ const bookSchema = mongoose.Schema({
   },
   userRating: {
     type: Number,
+    default:0
   },
   expertRating: {
     type:Number
   },
   userRatingSum :{
-    type : Number
+    type: Number,
+    default:0
   },
   expertReviews: [
     {
