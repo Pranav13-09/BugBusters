@@ -2,12 +2,14 @@ import connectDB from "../../utils/connectDB";
 import Book from "../../../../models/bookSchema"
 import User from "../../../../models/userSchema"
 import Review from "@/models/reviewSchema";
+import mongoose from "mongoose"
 
 const user = async (req, res) => {
   try {
      
       const { review, expertId, bookId ,rating} = req.body;
-      const newReview = new Review({
+    const newReview = new Review({
+        _id:new mongoose.Types.ObjectId(),
       reviewer_id: expertId,
       book_id: bookId,
       rating,

@@ -2,8 +2,8 @@
 import mongoose from "mongoose";
 const reviewSchema = mongoose.Schema({
   _id: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
+      type: mongoose.Schema.Types.ObjectId,
+      required : true
   },
   review: {
         type: String,
@@ -25,6 +25,12 @@ const reviewSchema = mongoose.Schema({
   downvotes:{
     type: Number,
     default: 0,
+ },
+ rating: {
+    type: Number,
+   required:true
+  }
+ 
 });
 
 export default mongoose.models.Review || mongoose.model('Review', reviewSchema);

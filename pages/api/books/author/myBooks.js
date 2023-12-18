@@ -2,15 +2,17 @@ import connectDB from "@/utils/connectDB";
 import Book from "../../../../models/bookSchema";
 import Author from "../../../../models/authorSchema";
 
-const myBooks = (req, res) => {
+const myBooks = async (req, res) => {
   try {
     const { authorID } = req.query;
-    const author = Author.find({ _id: authorID });
+    console.log(authorID,"i am here")
+    const author = await Author.find({ _id: authorID });
+    console.log(author,"i am author")
     if (!author) {
       return res.status(400).json({ error: "Not authorized" });
     }
 
-    const books = Book.find({ author_id: authorID });
+    const books =await Book.find({ author_id: authorID });
     res.status(200).json({ books: books });
   } catch (e) {
     console.log(e);
