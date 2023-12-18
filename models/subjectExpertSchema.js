@@ -18,6 +18,14 @@ const subjectExpertSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+    role: {
+    type: String,
+    default :"expert"
+  },
+    rating: {
+    type: Number,
+    default:1
+    }
 });
 
 export default mongoose.models.SubjectExpert ||

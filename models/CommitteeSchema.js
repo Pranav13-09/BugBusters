@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const userSchema = mongoose.Schema({
+const committeeSchema = mongoose.Schema({
   _id: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
@@ -18,14 +18,11 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-    role: {
+  role: {
     type: String,
-    default :"user"
+    default: "committee",
   },
-  rating: {
-    type: Number,
-    default:1
-    }
 });
 
-export default mongoose.models.User || mongoose.model("User", userSchema);
+export default mongoose.models.Committee ||
+  mongoose.model("Committee", committeeSchema);
