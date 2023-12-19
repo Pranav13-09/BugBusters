@@ -4,26 +4,18 @@ import Register from "../components/Register.jsx";
 import ME from "../public/bg5.png";
 
 const App = () => {
-  const [currentForm, setCurrentForm] = useState("login");
+  const [currentForm, setCurrentForm] = useState("register");
 
   const toggleForm = (formName) => setCurrentForm(formName);
 
   return (
     <>
-      <Login />   
-      <Register/>
+      {currentForm === "login" ? (
+        <Login setCurrentForm={setCurrentForm} />
+      ) : (
+        <Register setCurrentForm={setCurrentForm} />
+      )}
     </>
- 
-    // <div className="container">
-    //   <div className="left_container">
-    //     <img src="/bg5.png" alt="About Image" />
-    //   </div>
-    //   <div className="right_container">
-    //     <div className="right_inside">
-    //       {currentForm === "login" ? <Login onFormSwitch={toggleForm} /> : <Register onFormSwitch={toggleForm} />}
-    //     </div>
-    //   </div>
-    // </div>
   );
 };
 
