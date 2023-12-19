@@ -1,14 +1,15 @@
 import connectDB from "@/utils/connectDB";
 import Book from "../../../../models/bookSchema";
 import Author from "../../../../models/authorSchema";
-import mongoose from mongoose
+import mongoose from "mongoose"
 
 const addBook = async (req, res) => {
   try {
-    const { authors,category,image,authorID,name} = req.body;
-    const author = await Author.find({ _id: authorID }).select('degree domain experience');
+    const { authors,authorID,book} = req.body;
+    const author = await Author.findOne({ _id: authorID }).select('degree domain experience');
     authors.push(author)
     let total = authors.length;
+    console.log(authors , "i am suthotrs",total)
     if (!author) {
       return res.status(400).json({ error: "Not authorized" });
     }
@@ -23,7 +24,7 @@ const addBook = async (req, res) => {
       authorIds.push(author._id)
       if (author.degree == 3) {
         totQualification += 5;
-      } else if (author.domain === category) {
+      } else if (author.domain === book.category) {
         if (author.degree == 1) {
           totQualification+=2
         } else if (author.degree == 2) {
@@ -44,23 +45,25 @@ const addBook = async (req, res) => {
       totCount += count;
     }
 
-    let finalQualification = Math.min((totQualification / length), 5)
-    let finalExperience = Math.min((totExperience / length), 5);
-    let finalRscore = Manth.min(5 * totCount, 20);
+    let finalQualification = Math.min((totQualification / total), 5)
+    let finalExperience = Math.min((totExperience / total), 5);
+    let finalRscore = Math.min(5 * totCount, 20);
 
     let totScore = numAuthor + finalQualification + finalExperience + finalRscore;
+    console.log(finalExperience,finalQualification,finalRscore,totScore,"i amscoer")
     const newBook = new Book({
       _id :new mongoose.Types.ObjectId(),
-      name,
-      category,
+      name:book.name,
+      category:book.category,
       author_id: authorIds,
-      image,
+      image:book.image,
       status: 0,
       totalAuthorScore : totScore
     });
 
     // Save the new book to the database
     const savedBook = await newBook.save();
+    console.log(savedBook,"i am book")
     return res.status(200).json({message : "Book Added sucessfully"})
 
 
