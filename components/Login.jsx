@@ -23,8 +23,6 @@ export default function login({ setCurrentForm }) {
         password: pass,
         type: type,
       });
-      console.log(response, "i am here");
-      router.push("/authenticated");
     } catch (err) {
       console.log(err, "i am error");
     }
@@ -43,7 +41,11 @@ export default function login({ setCurrentForm }) {
         router.push("/authenticated");
       }
     }
-  }, []);
+    console.log("i am here okk")
+  }, [session,router]);
+
+
+
 
   return (
     <div className="flex w-screen h-screen justify-center items-center bg-slate-300">
