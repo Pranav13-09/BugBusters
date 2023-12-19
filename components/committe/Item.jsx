@@ -6,7 +6,8 @@ import axios from "axios";
 const Item = ({book,filter}) => {
   // console.log("Hi! I am from Itemajjj", book);
   const [products, setProducts] = useState(book);
-  const display=['To be Approved', 'Under Subject Reviewers', 'To be Published']
+  const display=['To be Approved', 'Under Subject Reviewers', 'To be Published'];
+  const url=[false, false, true];
 
 //   const fetchBooks = async () => {
 //     try {
@@ -38,7 +39,7 @@ const Item = ({book,filter}) => {
         {products &&
           products.map((product) => (
             <div key={product.id}>
-              <Link href={`/dashboard/${product._id}`}>
+              <Link href={`/committe/select/${product._id}`} className={!url[filter-1] ? 'pointer-events-none' :''} aria-disabled={!url[filter-1]}>
                 <div className="relative rounded-lg">
                   <img
                     src={product.image}
