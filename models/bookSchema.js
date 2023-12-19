@@ -16,11 +16,12 @@ const bookSchema = mongoose.Schema({
   status: {
     type: Number,
   },
-  author_id: {
+  author_id: [
+      {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Author",
-    required: true,
-  },
+    ref: "Author"
+  }
+],
   image: {
     type: String,
   },

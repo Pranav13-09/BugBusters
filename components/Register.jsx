@@ -15,6 +15,11 @@ const Register = ({ setCurrentForm }) => {
   };
 
   const handleSubmit = async (e) => {
+    const info = {
+      degree:qualification,
+      experience:experience,
+      domain: category
+    }
     e.preventDefault();
     try {
       console.log("I am sending");
@@ -23,9 +28,7 @@ const Register = ({ setCurrentForm }) => {
         email,
         pass,
         type,
-        experience,
-        qualification,
-        category,
+        info,
         "i am all the info"
       );
       const response = await axios.post(`/api/auth/register`, {
@@ -33,9 +36,7 @@ const Register = ({ setCurrentForm }) => {
         email: email,
         password: pass,
         type: type,
-        experience: experience,
-        qualification: qualification,
-        category: category,
+        info:info
       });
       console.log("I am sent");
       console.log(response, "i am response");

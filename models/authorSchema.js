@@ -21,6 +21,15 @@ const authorSchema = mongoose.Schema({
   role: {
     type: String,
     default :"author"
+  },
+  degree: {
+    type : Number
+  },
+  domain: {
+    type:String
+  },
+  experience: {
+    type :Number
   }
 });
 

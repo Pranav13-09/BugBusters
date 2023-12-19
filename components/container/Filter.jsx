@@ -88,28 +88,28 @@ const Filter = () => {
 
     const allHexValue = allHexValues
     
-    useEffect(() => {
-        axios.get('/api/filterproduct',{
-            params:{
-                categories:selectedCategories,
-                size:selectedSize,
-                price:{
-                    min:price.min,
-                    max:price.max
-                },
-                colors: selectedHexValues
-            },
-            headers:{
-                'Content-Type':'application/json'
-            }
-        })
-        .then((response) => {
-            console.log("response",response.data)
-        })
-        .catch((error) => {
-            console.log("Error",error)
-        })
-    })
+    // useEffect(() => {
+    //     axios.get('/api/filterproduct',{
+    //         params:{
+    //             categories:selectedCategories,
+    //             size:selectedSize,
+    //             price:{
+    //                 min:price.min,
+    //                 max:price.max
+    //             },
+    //             colors: selectedHexValues
+    //         },
+    //         headers:{
+    //             'Content-Type':'application/json'
+    //         }
+    //     })
+    //     .then((response) => {
+    //         console.log("response",response.data)
+    //     })
+    //     .catch((error) => {
+    //         console.log("Error",error)
+    //     })
+    // })
 
     return(
         <div className='relative'>

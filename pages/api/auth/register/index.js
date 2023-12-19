@@ -8,7 +8,7 @@ import connectDB from "@/utils/connectDB";
 
 const register = async (req, res) => {
   try {
-    const { name, email, password, type } = req.body;
+    const { name, email, password, type,info } = req.body;
     console.log(name, email, password, type, "i am here");
 
     const author = await Author.findOne({ email });
@@ -26,7 +26,7 @@ const register = async (req, res) => {
     const Id = new mongoose.Types.ObjectId();
     console.log("below here");
     if (type === "author") {
-      await Author.create({ _id: Id, name, email, password: hashedPassword });
+      await Author.create({ _id: Id, name, email, password: hashedPassword ,degree:info.degree,experience:info.experience,domain:info.domain});
     } else if (type === "subjectExpert") {
       await SubjectExpert.create({
         _id: Id,

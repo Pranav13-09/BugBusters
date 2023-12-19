@@ -36,7 +36,7 @@ export default function Page() {
     if (slug) {
       fetchBooks();
     }
-  }, []);
+  }, [slug]);
 
   useEffect(() => {
     sett1(slug);
