@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import axios from "axios";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { ToastContainer, toast } from 'react-toastify';
 
 const Register = ({ setCurrentForm }) => {
   const [email, setEmail] = useState("");
@@ -43,15 +44,6 @@ const Register = ({ setCurrentForm }) => {
     }
     e.preventDefault();
     try {
-      console.log("I am sending");
-      console.log(
-        name,
-        email,
-        pass,
-        type,
-        info,
-        "i am all the info"
-      );
       const response = await axios.post(`/api/auth/register`, {
         name: name,
         email: email,
@@ -59,7 +51,14 @@ const Register = ({ setCurrentForm }) => {
         type: type,
         info:info
       });
+      toast.success("Registeration Succesful.Please Login to continue")
       console.log("I am sent");
+      setEmail("");
+      setPass("");
+      setName("")
+      setCategory("");
+      setQualification("")
+      setExperience("")
       console.log(response, "i am response");
     } catch (e) {
       console.log(e, "i am error");
@@ -67,7 +66,8 @@ const Register = ({ setCurrentForm }) => {
   };
 
   return (
-    <div className="flex w-screen h-screen justify-center items-center bg-slate-300">
+    <>
+        <div className="flex w-screen h-screen justify-center items-center bg-slate-300">
       <img src="/logo.jpg" className="w-7/12 h-3/4" />
       <div className="flex flex-col items-center w-4/12 h-3/4 p-5 bg-slate-200 overflow-auto">
         <h1 className="text-2xl text-blue-900 font-bold">Register</h1>
@@ -155,7 +155,15 @@ const Register = ({ setCurrentForm }) => {
           Already have an account? Login
         </div>
       </div>
-    </div>
+       </div>  
+
+       <ToastContainer
+          position="top-right"
+          autoClose={4000}
+          className=" font-medium"
+        />
+    </>
+  
   );
 };
 

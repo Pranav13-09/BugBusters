@@ -6,13 +6,14 @@ import axios from "axios";
 import Link from "next/link";
 
 const author = () => {
-  const {  data:session, status } = useSession();
-  const [books,setBooks] =useState([]);
+  const {  data:session, status} = useSession();
+  const [books, setBooks] = useState([]);
+  const [userId,setUserId] = useState("")
   const fetchBooks = async () => {
     try {
-      const response = await axios.get("/api/books/user/published", {
+      const response = await axios.get("/api/books/committee/submitted", {
         params: {
-          userID: "65758a63a7e1acd36ab6ccaa",
+          userID: session.user.id,
         },
       });
       console.log(response, "i am response");
@@ -22,9 +23,18 @@ const author = () => {
     }
   };
 
+    useEffect(() => {
+    if (userId) {
+      fetchBooks();
+    console.log("i am called")
+    }
+  }, [userId]);
+
   useEffect(() => {
-    fetchBooks();
-  }, []);
+    if (session) {
+       setUserId(session.user.id)   
+    }
+  },[session])
   
   console.log(session,"i am data okk")
   return (

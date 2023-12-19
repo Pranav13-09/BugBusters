@@ -31,14 +31,14 @@ export default function login({ setCurrentForm }) {
   useEffect(() => {
     console.log("i am here okkk")
     if (status === "authenticated") {
-      if (type == "user") {
+      if (session.user.role == "user") {
         router.push("/authenticated");
-      } else if (type == "author") {
-        router.push("/authenticated");
-      } else if (type == "subjectExpert") {
+      } else if (session.user.role == "author") {
+        router.push("/author");
+      } else if (session.user.role == "subjectExpert") {
         router.push("/authenticated");
       } else {
-        router.push("/authenticated");
+        router.push("/committe");
       }
     }
     console.log("i am here okk")

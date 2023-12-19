@@ -61,7 +61,27 @@ const bookSchema = mongoose.Schema({
   },
   totalAuthorScore :{
     type:Number
-  }
+  },
+  totalCommitteeScore: {
+    type: Number
+  },
+  regret: {
+    type : "String"
+  },
+  expertsScore: [
+    {
+      expert_id: {
+         type :  mongoose.Schema.Types.ObjectId,
+        ref: "Book",
+      },
+      expertScore: {
+        type :Number
+      }
+    }
+  ]
+    
+  
+
 
 });
 
