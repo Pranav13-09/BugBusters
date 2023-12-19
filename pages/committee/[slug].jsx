@@ -1,7 +1,20 @@
 import Navbar from "@/components/Navbar";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
+import {useRouter} from "next/router";
+import axios from "axios"
 
 const general = () => {
+  const router = useRouter()
+    const { slug } = router.query;
+  const [t1, sett1] = useState();
+
+  useEffect(() => {
+    if(slug){
+      sett1(slug);
+    }
+  
+  }, [slug]);
+
   const [page, setPage] = useState(1);
 
   const [uniqueness1, setUniqueness1] = useState(0);
@@ -35,7 +48,7 @@ const general = () => {
     console.log(score);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const finalScore =
       page1Score +
       Number(attractiveness) +
@@ -50,8 +63,21 @@ const general = () => {
       Number(abbrevations) +
       Number(distribution) +
       Number(keywords);
+   console.log(finalScore,"i am finalScore")
+   console.log(t1,"i am t1")
 
-    console.log(finalScore);
+   try{
+           const response =  await axios.post("/api/committee/generateScore",{
+      bookID:t1,
+      bookScore : finalScore
+     }) 
+     console.log(response,"i am response")
+     router.push("/committe")
+   }catch(err){
+       console.log(err)
+   }
+ 
+
   };
 
   return (

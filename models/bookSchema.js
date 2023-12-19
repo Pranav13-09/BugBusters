@@ -61,6 +61,12 @@ const bookSchema = mongoose.Schema({
   },
   totalAuthorScore :{
     type:Number
+  },
+  totalCommitteeScore: {
+    type: Number
+  },
+  regret: {
+    type : "String"
   }
 
 });
