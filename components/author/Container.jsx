@@ -5,7 +5,7 @@ import Item from "./Item";
 
 const Container = ({ books }) => {
   return (
-    <div className="mb-[200px]">
+    <div className="mb-[20px]">
       <div className="flex ">
         <Link href="/filters" className="opacity-100">
           <div>
