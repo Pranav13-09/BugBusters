@@ -3,7 +3,7 @@ import React from "react";
 import Filter from "./Filter";
 import Item from "./Item";
 
-const Container = ({ book }) => {
+const Container = ({ books }) => {
   return (
     <div className="mb-[200px]">
       <div className="flex ">
@@ -13,7 +13,7 @@ const Container = ({ book }) => {
           </div>
         </Link>
         <div className="px-20">
-          <Item book={book} />
+          <Item book={books} />
         </div>
       </div>
     </div>
