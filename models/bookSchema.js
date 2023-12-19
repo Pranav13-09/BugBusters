@@ -67,7 +67,21 @@ const bookSchema = mongoose.Schema({
   },
   regret: {
     type : "String"
-  }
+  },
+  expertsScore: [
+    {
+      expert_id: {
+         type :  mongoose.Schema.Types.ObjectId,
+        ref: "Book",
+      },
+      expertScore: {
+        type :Number
+      }
+    }
+  ]
+    
+  
+
 
 });
 
