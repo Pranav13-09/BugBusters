@@ -5,7 +5,7 @@ import axios from 'axios'
 
 
 
-const Filter = () => {
+const Filter = ({setFilter}) => {
     const [showFilter, setShowFilter] = useState(false)
     const [selectedCategories, setSelectedCategories] = useState([])
     const [selectedSize, setSelectedSize] = useState([])
@@ -15,77 +15,7 @@ const Filter = () => {
         min:0,
         max:10,
     })
-
-    const handelMinChange = (e) => {
-        const value = e.target.name === "min" ? parseInt(e.target.value) : e.target.value;
-        setPrice({
-            ...price,
-            [e.target.name]: value
-        })
-    }
-
-    const handlMaxChange = (e) => {
-        const value = e.target.name === "max" ? parseInt(e.target.value) : e.target.value;
-        setPrice({
-            ...price,
-            [e.target.name]: value
-        })
-    }
-
-    const toggleCategory = (category) => {
-        setSelectedCategories((prevCategories) => 
-            prevCategories.includes(category) 
-            ? prevCategories.filter((c) => c !== category):
-            [...prevCategories, category]
-        )
-    }
-
-    const togglesize = (size) => {
-        setSelectedSize((prevSize) => 
-            prevSize.includes(size) 
-            ? prevSize.filter((c) => c !== size):
-            [...prevSize, size]
-        )
-    }
-
-    const toggleColor = (color) => {
-        setSelectedHexValues((prevColor) => 
-        prevColor.includes(color) 
-            ? prevColor.filter((c) => c !== color):
-            [...prevColor, color]
-        )
-    }
-
-    const getAllColors = async () => {
-        try{
-            const response = await axios.get('/api/color');
-            // console.log("Colors:", response.data);
-            return response.data
-        }
-        catch(error){
-            console.error("Error", error)
-            return null
-        }
-    }
-
-    useEffect(() => {
-        getAllColors().then((allColors) => {
-            if(allColors){
-                const hextSet = new Set()
-                allColors.forEach((element) => {
-                    const colors = element.color.split(',')
-                    colors.forEach((color) => {
-                        const hextValue = color.replace("#", "")
-                        hextSet.add(hextValue)
-                    })
-                })
-                const uniqueHexValues = Array.from(hextSet);
-                setHexValues(uniqueHexValues);
-            }
-        })
-    }, [])
-
-
+    const display=['Published Books', 'Under Review Books', 'Discarded Books']
     const allHexValue = allHexValues
     
     // useEffect(() => {
@@ -118,30 +48,24 @@ const Filter = () => {
                         <h1 className='text-neutral-800'>Filters</h1>
                         <BsSliders2Vertical size={20} className = 'text-neutral-600' />
                 </div>
-                <div className='flex flex-col py-3 pb-5 tet-sm text-neutral-600 border-b-[0.5px]'>
+                <div className='flex flex-col py-3 pb-5 tet-sm text-neutral-600 border-b-[0.5px] cursor-pointer'>
                     <span
                         className={`py-3 px-5 ${selectedCategories.includes('Blouses') ? "bg-purple-50":""}`}
-                        onClick={() => toggleCategory('Blouses')}
+                        onClick={() => setFilter(1)}
                     >
-                        Languages
+                        To be Approved
                     </span>
                     <span
                         className={`py-3 px-5 ${selectedCategories.includes('Shirt') ? "bg-purple-50":""}`}
-                        onClick={() => toggleCategory('Shirt')}
+                        onClick={() => setFilter(2)}
                     >
-                        Ratings
+                        Under Subject Reviewers
                     </span>
                     <span 
                     className={`py-3 px-5 ${selectedCategories.includes('Denim&Jeans') ? 'bg-purple-50' : ''}`}
-                    onClick={() => toggleCategory('Denim&Jeans')}
+                    onClick={() => setFilter(3)}
                     >
-                        Authors
-                    </span>
-                    <span 
-                        className={`py-3 px-5 ${selectedCategories.includes('Party') ? 'bg-purple-50' : ''}`}
-                        onClick={() => toggleCategory('Party')}
-                    >
-                        New Released
+                        To be Published
                     </span>
                 </div>
                 {/* <div className='border-b-[0.5px] pb-10'>

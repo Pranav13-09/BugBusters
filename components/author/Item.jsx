@@ -3,9 +3,11 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import axios from "axios";
 
-const Item = ({book}) => {
-  console.log("Hi! I am from Itemaaaa", book);
+const Item = ({book,filter}) => {
+
+  console.log("Hi! I am from Itemaaaa", filter,book);
   const [products, setProducts] = useState(book);
+  const display=['Under Committe Review','Under Subject Experts Review','','Published Books', 'Discarded Books']
 
 //   const fetchBooks = async () => {
 //     try {
@@ -21,19 +23,21 @@ const Item = ({book}) => {
 //     }
 //   };
 
-//   useEffect(() => {
-//     fetchBooks();
-//   }, []);
+  // useEffect(() => {
+  //   fetchBooks();
+  // }, [filter]);
 
   if (products.length === 0) {
     return <div>empty</div>;
   }
   return (
     <div>
-      <h1 className="py-3 text-xl">Author Books</h1>
+      <h1 className="py-3 text-xl">
+        {filter===-1 ? "All My Books" : display[filter-1]}</h1>
       <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 md:gap-20 gap-12 ">
         {products &&
           products.map((product) => (
+            (product.status === Number(filter) || filter===-1) && 
             <div key={product.id}>
               <Link href={`/dashboard/${product._id}`}>
                 <div className="relative rounded-lg">
@@ -56,7 +60,7 @@ const Item = ({book}) => {
                 </div>
               </Link>
             </div>
-          ))}
+))}
       </div>
     </div>
   );
