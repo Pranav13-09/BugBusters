@@ -54,6 +54,13 @@ const bookSchema = mongoose.Schema({
   approved: {
     type: Boolean,
     default : false
+  },
+  recommended: {
+    type: Boolean,
+    default : false
+  },
+  totalAuthorScore :{
+    type:Number
   }
 
 });

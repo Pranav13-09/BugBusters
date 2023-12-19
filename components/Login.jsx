@@ -31,6 +31,7 @@ export default function login({ setCurrentForm }) {
   };
 
   useEffect(() => {
+    console.log("i am here okkk")
     if (status === "authenticated") {
       if (type == "user") {
         router.push("/authenticated");
@@ -42,7 +43,7 @@ export default function login({ setCurrentForm }) {
         router.push("/authenticated");
       }
     }
-  }, [status, router]);
+  }, []);
 
   return (
     <div className="flex w-screen h-screen justify-center items-center bg-slate-300">
