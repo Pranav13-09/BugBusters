@@ -3,7 +3,8 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import axios from "axios";
 
-const Item = () => {
+const Item = ({book}) => {
+  console.log("Hi! I am from Item", book);
   const [products, setProducts] = useState([]);
 
   const fetchBooks = async () => {
