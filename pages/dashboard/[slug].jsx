@@ -7,6 +7,8 @@ import { getServerSession } from "next-auth";
 // import { options } from "@/app/api/auth/[...nextauth]/options";
 import { useRouter } from "next/router";
 import axios from "axios";
+import Navbar from "@/components/Navbar";
+import Container from "@/components/book/Container";
 
 export default function Page() {
   const router = useRouter();
@@ -22,8 +24,9 @@ export default function Page() {
           bookID: slug,
         },
       });
-      console.log(response, "i am response");
+      console.log(response.data, "i am response12222");
       setProducts(response.data.books);
+      setBook(response.data);
     } catch (error) {
       console.error("Error:", error);
     }
@@ -61,7 +64,10 @@ export default function Page() {
   // }
   // const urlString = product?.images
   return (
-    <></>
+    <>
+    <Navbar></Navbar>
+    <Container book={book}></Container>
+    </>
     // <div className="max-w-[1280px] mx-auto px-5 py-5">
     //   <div className="font-semibold text-2xl mb-2">
     //     <a href="/">SEINE</a>
