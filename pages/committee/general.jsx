@@ -1,3 +1,4 @@
+import Navbar from "@/components/Navbar";
 import React, { useState } from "react";
 
 const general = () => {
@@ -55,6 +56,7 @@ const general = () => {
 
   return (
     <>
+      <Navbar />
       {page === 1 ? (
         <div className="flex flex-col justify-center items-center mt-10">
           <div className="flex flex-col items-center w-5/6 border border-black rounded-lg p-3 bg-slate-200">
@@ -124,7 +126,7 @@ const general = () => {
                 setPage(2);
                 score1();
               }}
-              className="mt-5 p-2 bg-blue-300 rounded-lg"
+              className="mt-5 p-2 bg-blue-300 rounded-lg cursor-pointer"
             >
               Next
             </div>
@@ -276,13 +278,13 @@ const general = () => {
                 onClick={() => {
                   setPage(1);
                 }}
-                className="mt-5 p-2 bg-blue-300 rounded-lg"
+                className="mt-5 p-2 bg-blue-300 rounded-lg cursor-pointer"
               >
                 Prev
               </div>
               <div
                 onClick={handleSubmit}
-                className="mt-5 p-2 bg-blue-300 rounded-lg"
+                className="mt-5 p-2 bg-blue-300 rounded-lg cursor-pointer"
               >
                 Submit
               </div>
