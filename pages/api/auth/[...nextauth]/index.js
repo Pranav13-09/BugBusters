@@ -71,8 +71,7 @@ export const authOptions  = NextAuth({
    callbacks: {
     session: async (session) => {
        if (!session) return;
-       console.log(session,"i am session")
-       console.log(session.session.user.email, "i am the required mail")
+
        let userData;
        userData = await User.findOne({
         email: session.session.user.email,

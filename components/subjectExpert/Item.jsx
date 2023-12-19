@@ -3,12 +3,9 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import axios from "axios";
 
-
-const Item = ({book,filter}) => {
-  // console.log("Hi! I am from Itemajjj", book);
+const Item = ({ book }) => {
+  console.log("Hi! I am from Itemaaaa", book);
   const [products, setProducts] = useState(book);
-  const display=['To be Approved', 'Under Subject Reviewers', 'To be Published'];
-  const url=[false, false, true];
 
   //   const fetchBooks = async () => {
   //     try {
@@ -24,23 +21,21 @@ const Item = ({book,filter}) => {
   //     }
   //   };
 
-  useEffect(() => {
-    setProducts(book);
-  }, []);
+  //   useEffect(() => {
+  //     fetchBooks();
+  //   }, []);
 
   if (products.length === 0) {
     return <div>empty</div>;
   }
   return (
     <div>
-      <h1 className="py-3 text-xl">
-        {filter===-1 ? "All My Books" : display[filter-1]}
-      </h1>
+      <h1 className="py-3 text-xl">To be Reviewed Books</h1>
       <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 md:gap-20 gap-12 ">
         {products &&
           products.map((product) => (
             <div key={product.id}>
-              <Link href={`/committe/select/${product._id}`} className={!url[filter-1] ? 'pointer-events-none' :''} aria-disabled={!url[filter-1]}>
+              <Link href={`/subjectExpert/${product._id}`}>
                 <div className="relative rounded-lg">
                   <img
                     src={product.image}

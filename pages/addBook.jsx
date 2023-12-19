@@ -2,8 +2,12 @@ import Navbar from "@/components/Navbar";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import {useSession } from "next-auth/react";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
+import { useRouter } from "next/router";
 
 const page = () => {
+  const router = useRouter();
   const {  data:session, status } = useSession();
   const [name, setName] = useState("");
   const [img, setImg] = useState("");
@@ -44,7 +48,11 @@ const page = () => {
       authorID : session.user.id
     });
      console.log(response,"i am response")
+     toast.success("Book added successfully")
+     router.push("/author")
+
     }catch(err){
+      toast.error("Some error occured")
       console.log(err)
     }
  
@@ -124,6 +132,11 @@ const page = () => {
           <div onClick={addBook} className="hover:cursor-pointer">Add Book</div>
         </div>
       </div>
+      <ToastContainer
+          position="top-right"
+          autoClose={4000}
+          className=" font-medium"
+        />
     </>
   );
 };

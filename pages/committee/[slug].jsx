@@ -1,6 +1,19 @@
-import React, { useState } from "react";
+import Navbar from "@/components/Navbar";
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import axios from "axios";
 
 const general = () => {
+  const router = useRouter();
+  const { slug } = router.query;
+  const [t1, sett1] = useState();
+
+  useEffect(() => {
+    if (slug) {
+      sett1(slug);
+    }
+  }, [slug]);
+
   const [page, setPage] = useState(1);
 
   const [uniqueness1, setUniqueness1] = useState(0);
@@ -34,7 +47,7 @@ const general = () => {
     console.log(score);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const finalScore =
       page1Score +
       Number(attractiveness) +
@@ -49,12 +62,24 @@ const general = () => {
       Number(abbrevations) +
       Number(distribution) +
       Number(keywords);
+    console.log(finalScore, "i am finalScore");
+    console.log(t1, "i am t1");
 
-    console.log(finalScore);
+    try {
+      const response = await axios.post("/api/committee/generateScore", {
+        bookID: t1,
+        bookScore: finalScore,
+      });
+      console.log(response, "i am response");
+      router.push("/committe");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
     <>
+      <Navbar />
       {page === 1 ? (
         <div className="flex flex-col justify-center items-center mt-10">
           <div className="flex flex-col items-center w-5/6 border border-black rounded-lg p-3 bg-slate-200">
@@ -124,7 +149,7 @@ const general = () => {
                 setPage(2);
                 score1();
               }}
-              className="mt-5 p-2 bg-blue-300 rounded-lg"
+              className="mt-5 p-2 bg-blue-300 rounded-lg cursor-pointer"
             >
               Next
             </div>
@@ -276,13 +301,13 @@ const general = () => {
                 onClick={() => {
                   setPage(1);
                 }}
-                className="mt-5 p-2 bg-blue-300 rounded-lg"
+                className="mt-5 p-2 bg-blue-300 rounded-lg cursor-pointer"
               >
                 Prev
               </div>
               <div
                 onClick={handleSubmit}
-                className="mt-5 p-2 bg-blue-300 rounded-lg"
+                className="mt-5 p-2 bg-blue-300 rounded-lg cursor-pointer"
               >
                 Submit
               </div>

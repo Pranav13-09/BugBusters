@@ -57,7 +57,7 @@ const addBook = async (req, res) => {
       category:book.category,
       author_id: authorIds,
       image:"https://m.media-amazon.com/images/I/61dJ4ArbbPL.jpg",
-      status: 0,
+      status: 1,
       totalAuthorScore : totScore
     });
 
