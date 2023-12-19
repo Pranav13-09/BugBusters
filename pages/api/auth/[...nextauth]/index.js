@@ -82,7 +82,6 @@ export const authOptions  = NextAuth({
            email: session.session.user.email,
          });
        }
-         
        if (!userData) {
         userData = await SubjectExpert.findOne({
         email: session.session.user.email,
