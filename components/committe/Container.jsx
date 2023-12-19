@@ -1,20 +1,19 @@
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import Filter from "./Filter";
 import Item from "./Item";
 
 const Container = ({ books }) => {
    console.log(books,"Hello");
+   const [filter,setFilter]=useState(-1);
   return (
     <div className="mb-[200px]">
       <div className="flex ">
-        <Link href="/filters" className="opacity-100">
           <div>
-            <Filter />
+            <Filter setFilter={setFilter}/>
           </div>
-        </Link>
         <div className="px-20">
-          <Item book={books} />
+          <Item book={books} filter={filter}/>
         </div>
       </div>
     </div>

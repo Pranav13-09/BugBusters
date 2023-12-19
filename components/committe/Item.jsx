@@ -3,9 +3,10 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import axios from "axios";
 
-const Item = ({book}) => {
+const Item = ({book,filter}) => {
   // console.log("Hi! I am from Itemajjj", book);
   const [products, setProducts] = useState(book);
+  const display=['To be Approved', 'Under Subject Reviewers', 'To be Published']
 
 //   const fetchBooks = async () => {
 //     try {
@@ -30,7 +31,9 @@ const Item = ({book}) => {
   }
   return (
     <div>
-      <h1 className="py-3 text-xl">To be Published Books</h1>
+      <h1 className="py-3 text-xl">
+        {filter===-1 ? "All My Books" : display[filter-1]}
+      </h1>
       <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 md:gap-20 gap-12 ">
         {products &&
           products.map((product) => (

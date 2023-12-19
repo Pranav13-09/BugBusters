@@ -40,7 +40,7 @@ const author = () => {
       {books.length>0 && <Container books={books}></Container>}
 
       {/* {books.length>0 && <Container books={books}></Container>} */}
-      <div className="mb-[200px]">
+      {/* <div className="mb-[200px]">
       <div className="flex ">
         <div className="px-20">
             <h1 className="py-3 text-xl" style={{marginLeft:"250px"}}>Published Author Books</h1>
@@ -73,7 +73,7 @@ const author = () => {
       </div>
         </div>
       </div>
-    </div>
+    </div> */}
     </>
   )
 }
