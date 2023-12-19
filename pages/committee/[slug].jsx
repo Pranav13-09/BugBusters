@@ -1,18 +1,17 @@
 import Navbar from "@/components/Navbar";
-import React, { useState,useEffect } from "react";
-import {useRouter} from "next/router";
-import axios from "axios"
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import axios from "axios";
 
 const general = () => {
-  const router = useRouter()
-    const { slug } = router.query;
+  const router = useRouter();
+  const { slug } = router.query;
   const [t1, sett1] = useState();
 
   useEffect(() => {
-    if(slug){
+    if (slug) {
       sett1(slug);
     }
-  
   }, [slug]);
 
   const [page, setPage] = useState(1);
@@ -63,21 +62,19 @@ const general = () => {
       Number(abbrevations) +
       Number(distribution) +
       Number(keywords);
-   console.log(finalScore,"i am finalScore")
-   console.log(t1,"i am t1")
+    console.log(finalScore, "i am finalScore");
+    console.log(t1, "i am t1");
 
-   try{
-           const response =  await axios.post("/api/committee/generateScore",{
-      bookID:t1,
-      bookScore : finalScore
-     }) 
-     console.log(response,"i am response")
-     router.push("/committe")
-   }catch(err){
-       console.log(err)
-   }
- 
-
+    try {
+      const response = await axios.post("/api/committee/generateScore", {
+        bookID: t1,
+        bookScore: finalScore,
+      });
+      console.log(response, "i am response");
+      router.push("/committe");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (

@@ -1,8 +1,10 @@
 import Navbar from "@/components/Navbar";
 import React, { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
 const ratings = () => {
+  const { data: session, status } = useSession();
   const router = useRouter();
   const { slug } = router.query;
   const [t1, sett1] = useState();
@@ -24,6 +26,8 @@ const ratings = () => {
   const [visibility, setVisibility] = useState(0);
   const [labelling, setLabelling] = useState(0);
 
+  const [summary, setSummary] = useState("");
+
   const handleSubmit = async () => {
     const finalScore =
       Number(references) +
@@ -40,37 +44,20 @@ const ratings = () => {
       Number(visibility) +
       Number(labelling);
 
-    await axios.post("", {
+    await axios.post("/api/subjectExpert/", {
+      expertID: session.user.id,
+      bookID: slug,
       expertRating: finalScore,
+      summary: summary,
     });
     console.log(finalScore);
   };
 
-  const fetchBooks = async () => {
-    try {
-      console.log(slug);
-      const response = await axios.get("/api/books/getInfo", {
-        params: {
-          bookID: slug,
-        },
-      });
-      console.log(response.data, "i am response12222");
-      setProducts(response.data.books);
-      setBook(response.data);
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
-
   useEffect(() => {
-    if (slug) {
-      fetchBooks();
+    if (session) {
+      sett1(slug);
     }
-  }, [slug]);
-
-  useEffect(() => {
-    sett1(slug);
-  }, []);
+  }, [session]);
 
   return (
     <>
@@ -255,6 +242,13 @@ const ratings = () => {
             min={0}
             max={5}
             onChange={(e) => setLabelling(e.target.value)}
+            className="w-5/6 mt-1 p-2 rounded-lg"
+          />
+
+          <div className="text-lg w-5/6 mt-3">Summary</div>
+          <input
+            type="text"
+            onChange={(e) => setSummary(e.target.value)}
             className="w-5/6 mt-1 p-2 rounded-lg"
           />
 
