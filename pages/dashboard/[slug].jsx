@@ -12,6 +12,8 @@ import { useRouter } from 'next/router';
 export default async function Page(){
      const router = useRouter();
   const { slug } = router.query;
+
+  
     
     //  const { param1, param2 } = router.query;
     // const session = await getServerSession(options);

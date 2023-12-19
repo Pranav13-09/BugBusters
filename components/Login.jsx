@@ -31,13 +31,13 @@ export default function login(props) {
     if (status === 'authenticated') {
    
       if(type=="user"){
-         router.push("/autheticated")
+         router.push("/authenticated")
       }else if(type=="author"){
-          router.push("/autheticated")
+          router.push("/authenticated")
       }else if(type=="subjectExpert"){
-           router.push("/autheticated")
+           router.push("/authenticated")
       }else{
-           router.push("/autheticated")
+           router.push("/authenticated")
       }
     }
   }, [status, router]);
