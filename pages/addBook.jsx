@@ -1,23 +1,28 @@
 import Navbar from "@/components/Navbar";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import {useSession } from "next-auth/react";
 
 const page = () => {
+  const {  data:session, status } = useSession();
   const [name, setName] = useState("");
   const [img, setImg] = useState("");
   const [publisher, setPublisher] = useState("");
   const [authors, setAuthors] = useState([]);
   const [email, setEmail] = useState("");
+  const [category,setCategory] = useState()
+  console.log(session,"i am data")
 
   const addAuthor = async (e) => {
     e.preventDefault();
 
     try {
-      const author = await axios.post("", {
+      const author = await axios.post("/api/books/author/check", {
         email: email,
       });
+       console.log(author.data.author,"i am author")
 
-      setAuthors([...authors, author]);
+      setAuthors([...authors, author.data.author]);
       setEmail("");
     } catch (error) {
       console.log(error);
@@ -26,7 +31,9 @@ const page = () => {
 
   const addBook = async (e) => {
     e.preventDefault();
-    await axios.post("", {
+    console.log("I ma clsijhak")
+    try{
+        const response =  await axios.post("/api/books/author/add", {
       book: {
         name: name,
         img: img,
@@ -34,7 +41,13 @@ const page = () => {
         category: category,
       },
       authors: authors,
+      authorID : session.user.id
     });
+     console.log(response,"i am response")
+    }catch(err){
+      console.log(err)
+    }
+ 
   };
 
   return (
@@ -102,13 +115,13 @@ const page = () => {
             />
             <div
               onClick={(e) => addAuthor(e)}
-              className="flex items-center justify-center py-2 w-1/5 rounded-tr-lg rounded-br-lg bg-blue-200"
+              className="flex items-center justify-center py-2 w-1/5 rounded-tr-lg rounded-br-lg bg-blue-200 hover:cursor-pointer"
             >
               Add Co-Author
             </div>
           </div>
 
-          <div>Add Book</div>
+          <div onClick={addBook} className="hover:cursor-pointer">Add Book</div>
         </div>
       </div>
     </>
