@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 const Register = ({ setCurrentForm }) => {
   const [email, setEmail] = useState("");
@@ -10,9 +12,28 @@ const Register = ({ setCurrentForm }) => {
   const [qualification, setQualification] = useState("");
   const [category, setCategory] = useState("");
 
+    const router = useRouter();
+  const { data: session, status } = useSession();
+
   const showLogin = () => {
     setCurrentForm("login");
   };
+
+    useEffect(() => {
+    console.log("i am here okkk")
+    if (status === "authenticated") {
+      if (type == "user") {
+        router.push("/authenticated");
+      } else if (type == "author") {
+        router.push("/authenticated");
+      } else if (type == "subjectExpert") {
+        router.push("/authenticated");
+      } else {
+        router.push("/authenticated");
+      }
+    }
+    console.log("i am here okk")
+  }, [session,router]);
 
   const handleSubmit = async (e) => {
     const info = {

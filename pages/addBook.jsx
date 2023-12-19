@@ -54,7 +54,7 @@ const page = () => {
     <>
       <Navbar />
       <div className="flex flex-col justify-center items-center mt-10">
-        <div className="flex flex-col items-center w-5/6 border border-black rounded-lg p-3 bg-slate-200">
+        <div className="flex flex-col items-center w-5/6 border border-black rounded-lg p-3 bg-slate-400">
           <div className="text-3xl">Add Book</div>
 
           <div className="text-lg w-5/6 mt-3">Book Name</div>

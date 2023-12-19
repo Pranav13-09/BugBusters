@@ -6,7 +6,7 @@ const myBooks = async (req, res) => {
   try {
     const { authorID } = req.query;
     console.log(authorID,"i am here")
-    const author = await Author.find({ _id: authorID });
+    const author = await Author.findOne({ _id: authorID });
     console.log(author,"i am author")
     if (!author) {
       return res.status(400).json({ error: "Not authorized" });
