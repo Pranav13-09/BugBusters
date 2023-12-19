@@ -4,7 +4,7 @@ import SubjectExpert from "../../../../models/subjectExpertSchema";
 
 const submitted = async (req, res) => {
   try {
-    const { reviewerID } = req.params();
+    const { reviewerID } = req.query;
     const reviewer = await  SubjectExpert.find({ _id: reviewerID });
     if (!reviewer) {
       return res.status(400).json({ error: "Not authorized" });

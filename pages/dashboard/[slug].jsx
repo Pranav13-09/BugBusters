@@ -1,34 +1,39 @@
 import React from 'react'
-import ImageGallery from '../ImageGallery'
-import Info from '../Info'
+import ImageGallery from '../../components/ImageGallery'
+import Info from '../../components/Info'
 import Review from '@/app/components/Review'
-import ReviewSection from '../ReviewSection'
+import ReviewSection from '../../components/ReviewSection'
 import { getServerSession } from "next-auth";
 import {options} from "@/app/api/auth/[...nextauth]/options"
+import { useRouter } from 'next/router';
 
 
-export default async function Page({params}){
-    const productId = parseInt(params.slug,10)
-    const session = await getServerSession(options);
-    const currentUserId = session?.user.id
-    const product = await prisma.product.findUnique({
-        where:{
-            id:productId
-        }
-    })
-    const allReview = await prisma.review.findMany({
-        where:{
-            productId:productId
-        }
-    })
-    let averageRating = 0;
-    if(allReview.length > 0){
-        const totalRating = allReview.reduce((acc,review)=>{
-            return acc + review.rating
-        },0)
-        averageRating = totalRating/ allReview.length
-    }
-    const urlString = product?.images
+
+export default async function Page(){
+     const router = useRouter();
+  const { slug } = router.query;
+    
+    //  const { param1, param2 } = router.query;
+    // const session = await getServerSession(options);
+    // const currentUserId = session?.user.id
+    // const product = await prisma.product.findUnique({
+    //     where:{
+    //         id:productId
+    //     }
+    // })
+    // const allReview = await prisma.review.findMany({
+    //     where:{
+    //         productId:productId
+    //     }
+    // })
+    // let averageRating = 0;
+    // if(allReview.length > 0){
+    //     const totalRating = allReview.reduce((acc,review)=>{
+    //         return acc + review.rating
+    //     },0)
+    //     averageRating = totalRating/ allReview.length
+    // }
+    // const urlString = product?.images
     return(
         <div className='max-w-[1280px] mx-auto px-5 py-5'>
             <div className='font-semibold text-2xl mb-2'>
@@ -92,5 +97,6 @@ export default async function Page({params}){
                 </div>
             </div>
         </div>
+    
     )
 }

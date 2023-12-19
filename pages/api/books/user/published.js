@@ -4,7 +4,8 @@ import User from "../../../../models/userSchema";
 
 const published = async (req, res) => {
   try {
-    const { userID } = req.params;
+    const { userID } = req.query;
+    
     const user =  await User.find({ _id: userID });
     if (!user) {
       return res.status(400).json({ error: "Not Authorized" });

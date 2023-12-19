@@ -6,7 +6,7 @@ import { getToken } from "next-auth/jwt";
 
 const reviewed = async (req, res) => {
   try {
-    const { committeeID } = req.params;
+    const { committeeID } = req.query;
     const committee = await Committee.find({ _id: committeeID });
     if (!committee) {
       return res.status(400).json({ error: "Not Authorized" });
