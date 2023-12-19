@@ -4,7 +4,7 @@ import Register from "../components/Register.jsx";
 import ME from "../public/bg5.png";
 
 const App = () => {
-  const [currentForm, setCurrentForm] = useState("register");
+  const [currentForm, setCurrentForm] = useState("login");
 
   const toggleForm = (formName) => setCurrentForm(formName);
 
