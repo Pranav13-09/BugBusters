@@ -17,26 +17,23 @@ const bookSchema = mongoose.Schema({
     type: Number,
   },
   author_id: {
-     type: mongoose.Schema.Types.ObjectId,
-        ref: "Author",
-        required : true
-  },
-  category: {
-    type :String
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Author",
+    required: true,
   },
   image: {
-    type :String
+    type: String,
   },
   userRating: {
     type: Number,
-    default:0
+    default: 0,
   },
   expertRating: {
-    type:Number
-  },
-  userRatingSum :{
     type: Number,
-    default:0
+  },
+  userRatingSum: {
+    type: Number,
+    default: 0,
   },
   expertReviews: [
     {
@@ -45,16 +42,13 @@ const bookSchema = mongoose.Schema({
         ref: "SubjectExpert",
       },
       review: {
-        type:String
+        type: String,
       },
       rating: {
-        type:Number
-      }
-
+        type: Number,
+      },
     },
   ],
-
-
 });
 
 export default mongoose.models.Book || mongoose.model("Book", bookSchema);
