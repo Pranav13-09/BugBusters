@@ -14,24 +14,33 @@ export default function login(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(email, pass, type);
-    // try {
-    //   const response = await signIn("credentials", {
-    //     email: email,
-    //     password: pass,
-    //     type: type,
-    //   });
-    //   console.log(response, "i am here");
-    //   router.push("/authenticated");
-    // } catch (err) {
-    //   console.log(err, "i am error");
-    // }
+    try {
+      const response = await signIn("credentials", {
+        email: email,
+        password: pass,
+        type: type,
+      });
+      console.log(response, "i am here");
+      router.push("/authenticated");
+    } catch (err) {
+      console.log(err, "i am error");
+    }
   };
 
-  //    useEffect(() => {
-  //   if (status === 'authenticated') {
-  //     router.push('/authenticated'); // Redirect to '/authenticated' route upon successful authentication
-  //   }
-  // }, [status, router]);
+     useEffect(() => {
+    if (status === 'authenticated') {
+   
+      if(type=="user"){
+         router.push("/autheticated")
+      }else if(type=="author"){
+          router.push("/autheticated")
+      }else if(type=="subjectExpert"){
+           router.push("/autheticated")
+      }else{
+           router.push("/autheticated")
+      }
+    }
+  }, [status, router]);
 
   return (
     <div className="flex w-screen h-screen justify-center items-center bg-slate-300">
@@ -67,7 +76,7 @@ export default function login(props) {
         </select>
         <div
           onClick={handleSubmit}
-          className="w-4/5 text-xl mt-10 p-3 text-center rounded-lg text-white bg-blue-900"
+          className="w-4/5 text-xl mt-10 p-3 text-center rounded-lg text-white bg-blue-900 hover:cursor-pointer"
         >
           Login
         </div>

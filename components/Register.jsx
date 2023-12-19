@@ -14,14 +14,14 @@ const Register = (props) => {
     try {
       console.log("I am sending");
       console.log(name, email, pass, type, "i am all the info");
-      //   const response = await axios.post(`/api/auth/register`, {
-      //     name: name,
-      //     email: email,
-      //     password: pass,
-      //     type: user,
-      //   });
-      //   console.log("I am sent");
-      //   console.log(response, "i am response");
+        const response = await axios.post(`/api/auth/register`, {
+          name: name,
+          email: email,
+          password: pass,
+          type: type,
+        });
+        console.log("I am sent");
+        console.log(response, "i am response");
     } catch (e) {
       console.log(e, "i am error");
     }
@@ -68,9 +68,9 @@ const Register = (props) => {
         </select>
         <div
           onClick={handleSubmit}
-          className="w-4/5 text-xl mt-5 p-2 text-center rounded-lg text-white bg-blue-900"
+          className="w-4/5 text-xl mt-5 p-2 text-center rounded-lg text-white bg-blue-900 hover:cursor-pointer "
         >
-          Login
+          Register
         </div>
       </div>
     </div>

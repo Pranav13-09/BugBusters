@@ -49,6 +49,12 @@ const bookSchema = mongoose.Schema({
       },
     },
   ],
+
+  approved: {
+    type: Boolean,
+    default : false
+  }
+
 });
 
 export default mongoose.models.Book || mongoose.model("Book", bookSchema);
