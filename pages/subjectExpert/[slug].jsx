@@ -1,7 +1,12 @@
 import Navbar from "@/components/Navbar";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
 const ratings = () => {
+  const router = useRouter();
+  const { slug } = router.query;
+  const [t1, sett1] = useState();
+
   const [page, setPage] = useState(1);
   const [references, setReferences] = useState(0);
   const [clear, setClear] = useState(0);
@@ -19,7 +24,7 @@ const ratings = () => {
   const [visibility, setVisibility] = useState(0);
   const [labelling, setLabelling] = useState(0);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const finalScore =
       Number(references) +
       Number(clear) +
@@ -35,8 +40,37 @@ const ratings = () => {
       Number(visibility) +
       Number(labelling);
 
+    await axios.post("", {
+      expertRating: finalScore,
+    });
     console.log(finalScore);
   };
+
+  const fetchBooks = async () => {
+    try {
+      console.log(slug);
+      const response = await axios.get("/api/books/getInfo", {
+        params: {
+          bookID: slug,
+        },
+      });
+      console.log(response.data, "i am response12222");
+      setProducts(response.data.books);
+      setBook(response.data);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (slug) {
+      fetchBooks();
+    }
+  }, [slug]);
+
+  useEffect(() => {
+    sett1(slug);
+  }, []);
 
   return (
     <>

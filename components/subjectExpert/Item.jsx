@@ -4,7 +4,7 @@ import Link from "next/link";
 import axios from "axios";
 
 const Item = ({ book }) => {
-  // console.log("Hi! I am from Itemajjj", book);
+  console.log("Hi! I am from Itemaaaa", book);
   const [products, setProducts] = useState(book);
 
   //   const fetchBooks = async () => {
@@ -21,21 +21,21 @@ const Item = ({ book }) => {
   //     }
   //   };
 
-  useEffect(() => {
-    setProducts(book);
-  }, []);
+  //   useEffect(() => {
+  //     fetchBooks();
+  //   }, []);
 
   if (products.length === 0) {
     return <div>empty</div>;
   }
   return (
     <div>
-      <h1 className="py-3 text-xl">To be Published Books</h1>
+      <h1 className="py-3 text-xl">To be Reviewed Books</h1>
       <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 md:gap-20 gap-12 ">
         {products &&
           products.map((product) => (
             <div key={product.id}>
-              <Link href={`/committe/${product._id}`}>
+              <Link href={`/subjectExpert/${product._id}`}>
                 <div className="relative rounded-lg">
                   <img
                     src={product.image}
