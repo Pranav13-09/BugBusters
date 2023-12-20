@@ -1,7 +1,9 @@
 import connectDB from "@/utils/connectDB";
 import Book from "../../../models/bookSchema";
 import Committee from "../../../models/committeeSchema";
+import SubjectExpert from "../../../models/subjectExpertSchema"
 import { getToken } from "next-auth/jwt";
+import transporter from "@/utils/mailUtil"
 
 
 const reviewed = async (req, res) => {
@@ -24,7 +26,20 @@ const reviewed = async (req, res) => {
     
     if (totalScore > 50) {
       const experts = await SubjectExpert.find();
-      
+      experts.map(async(expert)=>{
+                    try {
+                  await transporter.sendMail({
+                    to: expert.email,
+                    subject: ` Invitation to Review: ${book.name}`,
+                    html: `I hope this message finds you in good health. 
+                    I am writing to invite you to serve as a subject reviewer for the book titled "${book.name}." 
+                    The manuscript has successfully passed the committee checks, and we believe your expertise in concerned subject area would provide valuable insights.
+        `,
+                  });
+                } catch (err) {
+                    console.log(err,"i am err")
+                  }
+          })
     }
 
       await book.save();

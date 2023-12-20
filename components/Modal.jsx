@@ -1,8 +1,10 @@
 import axios from "axios";
 import react, { useState, useEffect } from "react";
+import {useRouter} from "next/router"
 
 import ReactStars from "react-stars";
 const Modal = ({ isOpen, onClose, reviewer_id, book_id }) => {
+  const router = useRouter()
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState("");
   if (!isOpen) return null;
@@ -22,6 +24,7 @@ const Modal = ({ isOpen, onClose, reviewer_id, book_id }) => {
       rating: rating,
     });
     onClose()
+    router.reload()
     }catch(err){
       console.log(err,"i am error")
     }
