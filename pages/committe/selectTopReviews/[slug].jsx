@@ -35,7 +35,6 @@ const selectTopReviews = () => {
     const isPresent = selectedReviews.find(
       (item) => item.expert_id === review.expert_id
     );
-    console.log(isPresent);
     return isPresent;
   };
 
@@ -46,7 +45,6 @@ const selectTopReviews = () => {
         selectedReviews.filter((item) => item.expert_id !== review.expert_id)
       );
     } else {
-      console.log("inside else");
       setSelectedReviews([...selectedReviews, review]);
     }
   };
