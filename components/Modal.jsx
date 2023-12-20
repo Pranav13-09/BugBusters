@@ -2,7 +2,7 @@ import axios from "axios";
 import react, { useState, useEffect } from "react";
 
 import ReactStars from "react-stars";
-const Modal = ({ isOpen, onClose, review_id, book_id }) => {
+const Modal = ({ isOpen, onClose, reviewer_id, book_id }) => {
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState("");
   if (!isOpen) return null;
@@ -13,12 +13,19 @@ const Modal = ({ isOpen, onClose, review_id, book_id }) => {
   };
   const onSubmit = async () => {
     console.log(rating);
-    // await axios.post("review/", {
-    //   review: review,
-    //   reviewer_id: review_id,
-    //   book_id: book_id,
-    //   rating: rating,
-    // });
+    try{
+      console.log(reviewer_id,review,"i am here")
+    const response =  await axios.post("/api/reviews/user/addReview", {
+      review: review,
+      userId: reviewer_id,
+      bookId: book_id,
+      rating: rating,
+    });
+    onClose()
+    }catch(err){
+      console.log(err,"i am error")
+    }
+   
   };
 
   return (
@@ -44,7 +51,7 @@ const Modal = ({ isOpen, onClose, review_id, book_id }) => {
             <div className="text-center sm:text-left">
               <h3
                 className="text-lg font-medium leading-6 text-gray-900 mb-4"
-                onChange={(e) => setReview(e.target.value)}
+             
               >
                 Add Review
               </h3>
@@ -54,6 +61,7 @@ const Modal = ({ isOpen, onClose, review_id, book_id }) => {
                 color1="#CCCCCC" // Empty star color
                 color2="#f3b411" // Filled star color
                 edit={true} // Disable rating interaction
+                value={rating}
                 onChange={handleChange}
               />
               {/* Add your form or review input fields here */}
@@ -61,6 +69,7 @@ const Modal = ({ isOpen, onClose, review_id, book_id }) => {
               <textarea
                 className="w-full h-24 px-3 py-2 border rounded focus:outline-none focus:border-blue-500"
                 placeholder="Enter your review..."
+                   onChange={(e) => setReview(e.target.value)}
               ></textarea>
             </div>
           </div>

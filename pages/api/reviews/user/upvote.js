@@ -1,25 +1,26 @@
-import connectDB from "../../utils/connectDB";
+import connectDB from "../../../../utils/connectDB";
 import Book from "../../../../models/bookSchema"
 import User from "../../../../models/userSchema"
 import Review from "@/models/reviewSchema";
 
 const user = async (req, res) => {
   try {
-      const { reviewId,userId,type} = req.body;
-      const currUser = await User.find(userId);
+    const { reviewId, userId, type } = req.body;
+    console.log(req.body,"i am body")
+    const currUser = await User.find({ _id: userId });
       if (!currUser) {
           return res.status(400).json({message:"User not found"})
       }
-      const rating = currUser.rating;
+      // const rating = currUser.rating;
       const currReview = await Review.findOne({ _id: reviewId });
       const Ruser = await User.findOne({ _id: currReview.reviewer_id})
 
       if (type == 1) {
           currReview.upvotes += 1;
-          Ruser.rating += 0.02 * rating;
+         // Ruser.rating += 0.02 * rating;
       } else {
           currReview.downvotes += 1;
-          Ruser.rating -= 0.02 * rating;
+        //  Ruser.rating -= 0.02 * rating;
       }
 
       await currReview.save();

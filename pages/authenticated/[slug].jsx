@@ -23,39 +23,50 @@ const selectTopReviews = () => {
   const [t1, sett1] = useState();
   const [selectedReviews, setSelectedReviews] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [ reviews,setReviews] = useState([])
+      const [sessionUserId,setSessionUserId] = useState();
+      console.log(session,"i am session")
 
-  const reviews = [
-    {
-      _id: 1,
-      review:
-        "sdjfka sdifjsdfi sif wehfw ida suiefhw ew ugidwd iwgediw iedowihd wieu d",
-      reviewer_id: 1,
-      book_id: t1,
-      upvotes: 5,
-      downvotes: 2,
-      rating: 3,
-    },
-    {
-      _id: 2,
-      review:
-        "sdjfka sdifjsdfi sif wehfw ida suiefhw ew ugidwd iwgediw iedowihd wieu d",
-      reviewer_id: 2,
-      book_id: t1,
-      upvotes: 10,
-      downvotes: 5,
-      rating: 1,
-    },
-    {
-      _id: 3,
-      review:
-        "sdjfka sdifjsdfi sif wehfw ida suiefhw ew ugidwd iwgediw iedowihd wieu d",
-      reviewer_id: 3,
-      book_id: t1,
-      upvotes: 3,
-      downvotes: 7,
-      rating: 5,
-    },
-  ];
+      useEffect(()=>{
+        console.log("i m call")
+        if(session){
+          console.log("I am here")
+          setSessionUserId(session.user.id)
+        }
+      },[session])
+
+  // const reviews = [
+  //   {
+  //     _id: 1,
+  //     review:
+  //       "sdjfka sdifjsdfi sif wehfw ida suiefhw ew ugidwd iwgediw iedowihd wieu d",
+  //     reviewer_id: 1,
+  //     book_id: t1,
+  //     upvotes: 5,
+  //     downvotes: 2,
+  //     rating: 3,
+  //   },
+  //   {
+  //     _id: 2,
+  //     review:
+  //       "sdjfka sdifjsdfi sif wehfw ida suiefhw ew ugidwd iwgediw iedowihd wieu d",
+  //     reviewer_id: 2,
+  //     book_id: t1,
+  //     upvotes: 10,
+  //     downvotes: 5,
+  //     rating: 1,
+  //   },
+  //   {
+  //     _id: 3,
+  //     review:
+  //       "sdjfka sdifjsdfi sif wehfw ida suiefhw ew ugidwd iwgediw iedowihd wieu d",
+  //     reviewer_id: 3,
+  //     book_id: t1,
+  //     upvotes: 3,
+  //     downvotes: 7,
+  //     rating: 5,
+  //   },
+  // ];
 
   const fetchBook = async () => {
     const data = await axios.get("/api/books/getInfo", {
@@ -65,6 +76,17 @@ const selectTopReviews = () => {
     });
     console.log(data, "i am data");
     setBook(data.data);
+    // setReviews(data.reviews)
+  };
+
+    const fetchReviews = async () => {
+    const response = await axios.get("/api/reviews/book/getReview", {
+      params: {
+        bookID: slug,
+      },
+    });
+    setReviews(response.data.reviews)
+    console.log(response,"i am response of reviews")
   };
 
   const openModal = () => {
@@ -75,9 +97,37 @@ const selectTopReviews = () => {
     setIsModalOpen(false);
   };
 
-  const handleUpvote = () => {};
+  const handleUpvote = async(Id) => {
+      try{
+        console.log(sessionUserId,"i am seesion userId",Id)
+        console.log(Id,"i am id")
+        const response = await axios.post("/api/reviews/user/upvote",{
+          reviewId:Id,
+          userId:session.user.id,
+          type:1
+        })
+        console.log(response,"i am response")
 
-  const handleDownvote = () => {};
+      }catch(err){
+        console.log(err,"i am error")
+      }
+  };
+
+  const handleDownvote = async(Id) => {
+     try{
+        console.log(sessionUserId,"i am seesion userId",Id)
+        console.log(Id,"i am id")
+        const response = await axios.post("/api/reviews/user/upvote",{
+          reviewId:Id,
+          userId:session.user.id,
+          type: -1
+        })
+        console.log(response,"i am response")
+        
+      }catch(err){
+        console.log(err,"i am error")
+      }
+  };
 
   useEffect(() => {
     console.log(selectedReviews);
@@ -86,6 +136,7 @@ const selectTopReviews = () => {
   useEffect(() => {
     if (slug) {
       fetchBook();
+      fetchReviews()
     }
   }, [slug]);
 
@@ -127,16 +178,17 @@ const selectTopReviews = () => {
               </div>
             )}
           </div>
+          {session &&
           <Modal
             isOpen={isModalOpen}
             onClose={closeModal}
             book_id={t1}
             reviewer_id={session.user.id}
-          />
+          /> }
           <div className="w-3/4 px-5">
             <div className="text-xl font-bold mb-3">User Reviews</div>
-            {reviews.map((review, index) => (
-              <div className={`bg-slate-200 p-3 mb-5 rounded-lg`}>
+            { reviews && reviews?.map((review, index) => (
+              <div className={`bg-slate-300 p-3 mb-5 rounded-lg`}>
                 <ReactStars
                   count={5} // Total number of stars
                   value={Number(review.rating)} // Rating value (can be a decimal)
@@ -152,7 +204,7 @@ const selectTopReviews = () => {
                       <BiUpvote
                         onClick={() => {
                           setHasUpvoted(review._id);
-                          handleUpvote();
+                          handleUpvote(review._id);
                         }}
                       />
                     ) : (
@@ -166,7 +218,7 @@ const selectTopReviews = () => {
                       <BiDownvote
                         onClick={() => {
                           setHasDownvoted(review._id);
-                          handleDownvote();
+                          handleDownvote(review._id);
                         }}
                       />
                     ) : (
