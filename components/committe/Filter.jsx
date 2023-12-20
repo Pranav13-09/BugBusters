@@ -58,7 +58,7 @@ const Filter = ({setFilter}) => {
                     <span
                         className={`py-3 px-5 ${selectedCategories.includes('Shirt') ? "bg-purple-50":""}`}
                         onClick={() => setFilter(2)}
-                    >
+                    >       
                         Under Subject Reviewers
                     </span>
                     <span 
