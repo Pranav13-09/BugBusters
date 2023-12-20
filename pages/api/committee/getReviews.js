@@ -1,6 +1,6 @@
 import connectDB from "@/utils/connectDB";
-import Book from "../../../../models/bookSchema";
-import Author from "../../../../models/authorSchema";
+import Book from "../../../models/bookSchema";
+import Author from "../../../models/authorSchema";
 
 const addBook = async (req, res) => {
   try {
@@ -11,7 +11,7 @@ const addBook = async (req, res) => {
       }
       
       const reviews = Book.expertScores;
-      return res.status(200).json({reviews : reviews})
+      return res.status(200).json({books:Book})
 
   } catch (e) {
     console.log(e);

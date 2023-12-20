@@ -17,11 +17,11 @@ const bookSchema = mongoose.Schema({
     type: Number,
   },
   author_id: [
-      {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Author"
-  }
-],
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Author",
+    },
+  ],
   image: {
     type: String,
   },
@@ -38,25 +38,25 @@ const bookSchema = mongoose.Schema({
   },
   approved: {
     type: Boolean,
-    default : false
+    default: false,
   },
   recommended: {
     type: Boolean,
-    default : false
+    default: false,
   },
-  totalAuthorScore :{
-    type:Number
+  totalAuthorScore: {
+    type: Number,
   },
   totalCommitteeScore: {
-    type: Number
+    type: Number,
   },
   regret: {
-    type : "String"
+    type: "String",
   },
   expertsScore: [
     {
       expert_id: {
-         type :  mongoose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "Book",
       },
       expertScore: {

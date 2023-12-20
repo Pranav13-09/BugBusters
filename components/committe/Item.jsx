@@ -9,7 +9,7 @@ const Item = ({book,filter}) => {
   const [products, setProducts] = useState(book);
   const display=['To be Approved', 'Under Subject Reviewers', 'To be Published']
   const url=[true, false, true];
-  const routes=['/committee/','','/committe/select/'];
+  const routes=['/committee/','','/committe/selectTopReviews/'];
 
 
 

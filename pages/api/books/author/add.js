@@ -63,7 +63,7 @@ const addBook = async (req, res) => {
 
     // Save the new book to the database
     const savedBook = await newBook.save();
-    console.log(savedBook,"i am book")
+    
     return res.status(200).json({message : "Book Added sucessfully"})
 
 
