@@ -105,6 +105,16 @@ const selectTopReviews = () => {
               <img src={book.image} style={{ borderRadius: "10px" }} alt="" />
             )}
             {book && (
+              <ReactStars
+                count={5} // Total number of stars
+                value={Number(book.finalEvaluationScore) / 15} // Rating value (can be a decimal)
+                size={30} // Size of the stars
+                color1="#CCCCCC" // Empty star color
+                color2="#f3b411" // Filled star color
+                edit={false} // Disable rating interaction
+              />
+            )}
+            {book && (
               <div
                 style={{
                   display: "flex",
@@ -127,12 +137,14 @@ const selectTopReviews = () => {
               </div>
             )}
           </div>
-          <Modal
-            isOpen={isModalOpen}
-            onClose={closeModal}
-            book_id={t1}
-            reviewer_id={session.user.id}
-          />
+          {session && (
+            <Modal
+              isOpen={isModalOpen}
+              onClose={closeModal}
+              book_id={t1}
+              reviewer_id={session.user.id}
+            />
+          )}
           <div className="w-3/4 px-5">
             <div className="text-xl font-bold mb-3">User Reviews</div>
             {reviews.map((review, index) => (
