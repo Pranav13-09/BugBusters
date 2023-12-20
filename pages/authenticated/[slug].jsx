@@ -156,6 +156,16 @@ const selectTopReviews = () => {
               <img src={book.image} style={{ borderRadius: "10px" }} alt="" />
             )}
             {book && (
+              <ReactStars
+                count={5} // Total number of stars
+                value={Number(book.finalEvaluationScore) / 15} // Rating value (can be a decimal)
+                size={30} // Size of the stars
+                color1="#CCCCCC" // Empty star color
+                color2="#f3b411" // Filled star color
+                edit={false} // Disable rating interaction
+              />
+            )}
+            {book && (
               <div
                 style={{
                   display: "flex",

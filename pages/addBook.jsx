@@ -112,6 +112,23 @@ const page = () => {
             ))}
           </div>
 
+          <div className="flex flex-col items-center w-full">
+            <div className="text-lg w-5/6 mt-5">
+              Upload Plagiarism Certificate
+              <a
+                className="text-blue-500"
+                href="https://plagiarismexperts.org/plagiarism-check-landing-page/?campaignid=14641093827&adgroupid=125926015574&keyword=turnitin%20plagiarism%20checker&matchtype=e&device=c&gclid=CjwKCAiAvoqsBhB9EiwA9XTWGZEFhaXL64QAbABSzJ2kxbkYtENkefT5jwVZY96GmEJb-eM8VSA1shoCKu8QAvD_BwE"
+              >
+                {" "}
+                (Link)
+              </a>
+            </div>
+            <input
+              type="file"
+              className="mt-1 p-2 w-5/6 border rounded-lg bg-white"
+            />
+          </div>
+
           <div className="flex w-5/6 mt-5">
             <input
               type="email"
