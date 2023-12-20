@@ -36,21 +36,6 @@ const bookSchema = mongoose.Schema({
     type: Number,
     default: 0,
   },
-  expertReviews: [
-    {
-      expert_id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "SubjectExpert",
-      },
-      review: {
-        type: String,
-      },
-      rating: {
-        type: Number,
-      },
-    },
-  ],
-
   approved: {
     type: Boolean,
     default : false
@@ -76,12 +61,29 @@ const bookSchema = mongoose.Schema({
       },
       expertScore: {
         type :Number
+      },
+      summary: {
+        type :String
       }
     }
-  ]
-    
-  
-
+  ],
+  selectedReviews: [
+    {
+      expert_id: {
+         type :  mongoose.Schema.Types.ObjectId,
+        ref: "Book",
+      },
+      expertScore: {
+        type :Number
+      },
+      summary: {
+        type :String
+      }
+    }
+  ],
+  finalEvaluationScore: {
+    type : Number
+  }
 
 });
 

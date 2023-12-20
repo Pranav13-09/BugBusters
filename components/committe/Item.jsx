@@ -8,20 +8,10 @@ const Item = ({book,filter}) => {
   // console.log("Hi! I am from Itemajjj", book);
   const [products, setProducts] = useState(book);
   const display=['To be Approved', 'Under Subject Reviewers', 'To be Published']
+  const url=[true, false, true];
+  const routes=['/committee/','','/committe/select/'];
 
-  //   const fetchBooks = async () => {
-  //     try {
-  //       const response = await axios.get("/api/books/user/published", {
-  //         params: {
-  //           userID: "65758a63a7e1acd36ab6ccaa",
-  //         },
-  //       });
-  //       console.log(response, "i am response");
-  //       setProducts(response.data.books);
-  //     } catch (error) {
-  //       console.error("Error:", error);
-  //     }
-  //   };
+
 
   useEffect(() => {
     setProducts(book);
@@ -38,8 +28,9 @@ const Item = ({book,filter}) => {
       <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 md:gap-20 gap-12 ">
         {products &&
           products.map((product) => (
+            product.status=== Number(filter) &&
             <div key={product.id}>
-              <Link href={`/committe/${product._id}`}>
+             <Link href={`${routes[filter-1]}${product._id}`} className={!url[filter-1] ? 'pointer-events-none' :''} aria-disabled={!url[filter-1]}>
                 <div className="relative rounded-lg">
                   <img
                     src={product.image}

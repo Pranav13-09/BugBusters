@@ -56,34 +56,6 @@ const Filter = () => {
         )
     }
 
-    const getAllColors = async () => {
-        try{
-            const response = await axios.get('/api/color');
-            // console.log("Colors:", response.data);
-            return response.data
-        }
-        catch(error){
-            console.error("Error", error)
-            return null
-        }
-    }
-
-    useEffect(() => {
-        getAllColors().then((allColors) => {
-            if(allColors){
-                const hextSet = new Set()
-                allColors.forEach((element) => {
-                    const colors = element.color.split(',')
-                    colors.forEach((color) => {
-                        const hextValue = color.replace("#", "")
-                        hextSet.add(hextValue)
-                    })
-                })
-                const uniqueHexValues = Array.from(hextSet);
-                setHexValues(uniqueHexValues);
-            }
-        })
-    }, [])
 
 
     const allHexValue = allHexValues

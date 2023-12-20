@@ -8,11 +8,12 @@ import Link from "next/link";
 const author = () => {
   const { data: session, status } = useSession();
   const [books, setBooks] = useState([]);
+   const [userId,setUserId] = useState("")
   const fetchBooks = async () => {
     try {
-      const response = await axios.get("/api/books/author/myBooks", {
+      const response = await axios.get("/api/books/subjectExpert/getBooks", {
         params: {
-          authorID: "658172bf7e02bf146e33b91b",
+          userID: userId,
         },
       });
       console.log(response, "i am response");
@@ -22,9 +23,19 @@ const author = () => {
     }
   };
 
+    useEffect(() => {
+    if (userId) {
+      fetchBooks();
+    console.log("i am called")
+    }
+  }, [userId]);
+
   useEffect(() => {
-    fetchBooks();
-  }, []);
+    if (session) {
+       setUserId(session.user.id)   
+    }
+  },[session])
+ 
 
   console.log(session, "i am data okk");
   return (
