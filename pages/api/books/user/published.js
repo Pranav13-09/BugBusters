@@ -11,7 +11,7 @@ const published = async (req, res) => {
       return res.status(400).json({ error: "Not Authorized" });
     }
 
-    const publishedBooks = await Book.find({ status: 3 });
+    const publishedBooks = await Book.find({ status: 4 });
     res.status(200).json({ books: publishedBooks });
   } catch (e) {
     console.log(e);

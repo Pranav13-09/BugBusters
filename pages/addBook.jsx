@@ -1,21 +1,21 @@
 import Navbar from "@/components/Navbar";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import {useSession } from "next-auth/react";
-import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer, toast } from 'react-toastify';
+import { useSession } from "next-auth/react";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
 import { useRouter } from "next/router";
 
 const page = () => {
   const router = useRouter();
-  const {  data:session, status } = useSession();
+  const { data: session, status } = useSession();
   const [name, setName] = useState("");
   const [img, setImg] = useState("");
   const [publisher, setPublisher] = useState("");
   const [authors, setAuthors] = useState([]);
   const [email, setEmail] = useState("");
-  const [category,setCategory] = useState()
-  console.log(session,"i am data")
+  const [category, setCategory] = useState();
+  console.log(session, "i am data");
 
   const addAuthor = async (e) => {
     e.preventDefault();
@@ -24,7 +24,7 @@ const page = () => {
       const author = await axios.post("/api/books/author/check", {
         email: email,
       });
-       console.log(author.data.author,"i am author")
+      console.log(author.data.author, "i am author");
 
       setAuthors([...authors, author.data.author]);
       setEmail("");
@@ -35,27 +35,25 @@ const page = () => {
 
   const addBook = async (e) => {
     e.preventDefault();
-    console.log("I ma clsijhak")
-    try{
-        const response =  await axios.post("/api/books/author/add", {
-      book: {
-        name: name,
-        img: img,
-        publisher: publisher,
-        category: category,
-      },
-      authors: authors,
-      authorID : session.user.id
-    });
-     console.log(response,"i am response")
-     toast.success("Book added successfully")
-     router.push("/author")
-
-    }catch(err){
-      toast.error("Some error occured")
-      console.log(err)
+    console.log("I ma clsijhak");
+    try {
+      const response = await axios.post("/api/books/author/add", {
+        book: {
+          name: name,
+          img: img,
+          publisher: publisher,
+          category: category,
+        },
+        authors: authors,
+        authorID: session.user.id,
+      });
+      console.log(response, "i am response");
+      toast.success("Book added successfully");
+      router.push("/author");
+    } catch (err) {
+      toast.error("Some error occured");
+      console.log(err);
     }
- 
   };
 
   return (
@@ -129,14 +127,19 @@ const page = () => {
             </div>
           </div>
 
-          <div onClick={addBook} className="hover:cursor-pointer">Add Book</div>
+          <div
+            onClick={addBook}
+            className="cursor-pointer p-2 bg-blue-400 hover:bg-blue-500 mt-5 rounded-lg"
+          >
+            Add Book
+          </div>
         </div>
       </div>
       <ToastContainer
-          position="top-right"
-          autoClose={4000}
-          className=" font-medium"
-        />
+        position="top-right"
+        autoClose={4000}
+        className=" font-medium"
+      />
     </>
   );
 };

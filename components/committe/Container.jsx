@@ -5,7 +5,7 @@ import Item from "./Item";
 
 const Container = ({ books }) => {
    console.log(books,"Hello");
-   const [filter,setFilter]=useState(-1);
+   const [filter,setFilter]=useState(1);
   return (
     <div className="mb-[200px]">
       <div className="flex ">

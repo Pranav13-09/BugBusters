@@ -35,8 +35,8 @@ export default function login({ setCurrentForm }) {
         router.push("/authenticated");
       } else if (session.user.role == "author") {
         router.push("/author");
-      } else if (session.user.role == "subjectExpert") {
-        router.push("/authenticated");
+      } else if (session.user.role == "expert") {
+        router.push("/subjectExpert");
       } else {
         router.push("/committe");
       }
