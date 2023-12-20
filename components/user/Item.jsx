@@ -35,7 +35,7 @@ const Item = ({book}) => {
         {products &&
           products.map((product) => (
             <div key={product.id}>
-              <Link href={`/dashboard/${product._id}`}>
+              <Link href={`/authenticated/${product._id}`}>
                 <div className="relative rounded-lg">
                   <img
                     src={product.image}
