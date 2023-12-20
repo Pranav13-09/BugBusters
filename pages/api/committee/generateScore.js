@@ -11,7 +11,8 @@ const reviewed = async (req, res) => {
     const book = await  Book.findOne({ _id: bookID });
     if (!book) {
       return res.status(400).json({ error: "Book not found" });
-      }
+    }
+    console.log(book.totalAuthorScore,"i am here")
       const totalScore = book.totalAuthorScore + bookScore;
 
       if (totalScore < 50 ) {
@@ -19,7 +20,12 @@ const reviewed = async (req, res) => {
       } else {
           book.totalCommitteeScore = totalScore;
           book.status = 2;
-      }
+    }
+    
+    if (totalScore > 50) {
+      const experts = await SubjectExpert.find();
+      
+    }
 
       await book.save();
       res.status(200).json({message :"Book reviewed successfully"});
