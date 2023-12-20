@@ -3,45 +3,15 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
+
 const selectTopReviews = () => {
-  const router = useRouter();
+    const router = useRouter();
+
   const [book, setBook] = useState();
   const { slug } = router.query;
   const [t1, sett1] = useState();
   const [selectedReviews, setSelectedReviews] = useState([]);
 
-  const expertReviews = [
-    {
-      expert_id: "a",
-      review:
-        "sdjkas dskfhdksjd fksdhfksajfd ksjfksdhfksdahfks dfkshf sidhfiheo fwiho eiwoe uwoeueowueowue wouo woeurowepw9u oiwo9wo wowiodi o ",
-      rating: 4,
-    },
-    {
-      expert_id: "b",
-      review:
-        "sdjkas dskfhdksjd fksdhfksajfd ksjfksdhfksdahfks dfkshf sidhfiheo fwiho eiwoe uwoeueowueowue wouo woeurowepw9u oiwo9wo wowiodi o ",
-      rating: 4,
-    },
-    {
-      expert_id: "c",
-      review:
-        "sdjkas dskfhdksjd fksdhfksajfd ksjfksdhfksdahfks dfkshf sidhfiheo fwiho eiwoe uwoeueowueowue wouo woeurowepw9u oiwo9wo wowiodi o ",
-      rating: 4,
-    },
-    {
-      expert_id: "d",
-      review:
-        "sdjkas dskfhdksjd fksdhfksajfd ksjfksdhfksdahfks dfkshf sidhfiheo fwiho eiwoe uwoeueowueowue wouo woeurowepw9u oiwo9wo wowiodi o ",
-      rating: 4,
-    },
-    {
-      expert_id: "e",
-      review:
-        "sdjkas dskfhdksjd fksdhfksajfd ksjfksdhfksdahfks dfkshf sidhfiheo fwiho eiwoe uwoeueowueowue wouo woeurowepw9u oiwo9wo wowiodi o ",
-      rating: 4,
-    },
-  ];
 
   const findItem = (review) => {
     const isPresent = selectedReviews.find(
@@ -66,11 +36,17 @@ const selectTopReviews = () => {
       alert("Select 3 reviews!!!");
       return;
     }
-
-    await axios.post("/api/committee/selectthree", {
-      topthree: selectedReviews,
+    try{
+     const response = await axios.post("/api/committee/selectthree", {
+      topThree: selectedReviews,
       bookID: t1,
     });
+    console.log(response,"i am response")
+    router.push("/committe")
+    }catch(err){
+      console.log(err,"i am error")
+    }
+ 
   };
 
   const fetchBook = async () => {
@@ -79,6 +55,7 @@ const selectTopReviews = () => {
         bookID: slug,
       },
     });
+    console.log(data,"i am data")
     setBook(data.data);
   };
 
@@ -93,8 +70,11 @@ const selectTopReviews = () => {
   }, [slug]);
 
   useEffect(() => {
-    sett1(slug);
-  }, []);
+    if(slug){
+       sett1(slug);
+    }
+   
+  }, [slug]);
 
   return (
     <>
@@ -103,7 +83,7 @@ const selectTopReviews = () => {
         <div className="flex w-5/6 mt-5">
           <div className="w-1/4">{book && <img src={book.image} alt="" />}</div>
           <div className="w-3/4 px-5">
-            {expertReviews.map((review, index) => (
+            { book && book.expertsScore.map((review, index) => (
               <div
                 className={`bg-slate-200 p-3 mb-5 rounded-lg ${
                   findItem(review) ? "border border-black" : ""
@@ -113,8 +93,8 @@ const selectTopReviews = () => {
                 <option key={index} value={index} className="text-xl font-bold">
                   {review.expert_id}
                 </option>
-                <div>{review.review}</div>
-                <div className="font-bold">Rating: {review.rating} / 5</div>
+                <div>{review.summary}</div>
+                <div className="font-bold">Rating: {review.expertScore / 5}</div>
               </div>
             ))}
             <div

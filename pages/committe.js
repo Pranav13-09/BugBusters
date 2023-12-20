@@ -11,7 +11,7 @@ const author = () => {
   const [userId,setUserId] = useState("")
   const fetchBooks = async () => {
     try {
-      const response = await axios.get("/api/books/committee/submitted", {
+      const response = await axios.get("/api/books/committee/all", {
         params: {
           userID: session.user.id,
         },

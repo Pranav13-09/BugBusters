@@ -7,7 +7,7 @@ import { getToken } from "next-auth/jwt";
 const reviewed = async (req, res) => {
   try {
       const { bookID, bookScore } = req.body;
-      console.log(bookID,"i am bookID")
+      console.log(bookID,bookScore,"i am bookID")
     const book = await  Book.findOne({ _id: bookID });
     if (!book) {
       return res.status(400).json({ error: "Book not found" });
@@ -15,7 +15,7 @@ const reviewed = async (req, res) => {
       const totalScore = book.totalAuthorScore + bookScore;
 
       if (totalScore < 50 ) {
-          book.status = 4;
+          book.status = 5;
       } else {
           book.totalCommitteeScore = totalScore;
           book.status = 2;

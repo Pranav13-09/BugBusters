@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import React, { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import axios from "axios"
 
 const ratings = () => {
   const { data: session, status } = useSession();
@@ -43,14 +44,21 @@ const ratings = () => {
       Number(clarity) +
       Number(visibility) +
       Number(labelling);
-
-    await axios.post("/api/subjectExpert/", {
+      try{
+          const response =    await axios.post("/api/subjectExpert/generateScore", {
       expertID: session.user.id,
       bookID: slug,
       expertRating: finalScore,
       summary: summary,
     });
     console.log(finalScore);
+    console.log(response,"i am hjdgjsh")
+    router.push("/subjectExpert")
+      }catch(err){
+        console.log(err,"i am dsd")
+      }
+
+   
   };
 
   useEffect(() => {

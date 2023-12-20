@@ -56,14 +56,14 @@ const addBook = async (req, res) => {
       name:book.name,
       category:book.category,
       author_id: authorIds,
-      image:"https://m.media-amazon.com/images/I/61dJ4ArbbPL.jpg",
+      image:book.img,
       status: 1,
       totalAuthorScore : totScore
     });
 
     // Save the new book to the database
     const savedBook = await newBook.save();
-    console.log(savedBook,"i am book")
+    
     return res.status(200).json({message : "Book Added sucessfully"})
 
 
