@@ -3,15 +3,13 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
-
 const selectTopReviews = () => {
-    const router = useRouter();
+  const router = useRouter();
 
   const [book, setBook] = useState();
   const { slug } = router.query;
   const [t1, sett1] = useState();
   const [selectedReviews, setSelectedReviews] = useState([]);
-
 
   const findItem = (review) => {
     const isPresent = selectedReviews.find(
@@ -36,17 +34,16 @@ const selectTopReviews = () => {
       alert("Select 3 reviews!!!");
       return;
     }
-    try{
-     const response = await axios.post("/api/committee/selectthree", {
-      topThree: selectedReviews,
-      bookID: t1,
-    });
-    console.log(response,"i am response")
-    router.push("/committe")
-    }catch(err){
-      console.log(err,"i am error")
+    try {
+      const response = await axios.post("/api/committee/selectthree", {
+        topThree: selectedReviews,
+        bookID: t1,
+      });
+      console.log(response, "i am response");
+      router.push("/committe");
+    } catch (err) {
+      console.log(err, "i am error");
     }
- 
   };
 
   const fetchBook = async () => {
@@ -55,7 +52,7 @@ const selectTopReviews = () => {
         bookID: slug,
       },
     });
-    console.log(data,"i am data")
+    console.log(data, "i am data");
     setBook(data.data);
   };
 
@@ -70,10 +67,9 @@ const selectTopReviews = () => {
   }, [slug]);
 
   useEffect(() => {
-    if(slug){
-       sett1(slug);
+    if (slug) {
+      sett1(slug);
     }
-   
   }, [slug]);
 
   return (
@@ -83,20 +79,25 @@ const selectTopReviews = () => {
         <div className="flex w-5/6 mt-5">
           <div className="w-1/4">{book && <img src={book.image} alt="" />}</div>
           <div className="w-3/4 px-5">
-            { book && book.expertsScore.map((review, index) => (
-              <div
-                className={`bg-slate-200 p-3 mb-5 rounded-lg ${
-                  findItem(review) ? "border border-black" : ""
-                }`}
-                onClick={(e) => handleClick(review)}
-              >
-                <option key={index} value={index} className="text-xl font-bold">
-                  {review.expert_id}
-                </option>
-                <div>{review.summary}</div>
-                <div className="font-bold">Rating: {review.expertScore / 5}</div>
-              </div>
-            ))}
+            {book &&
+              book.expertsScore.map((review, index) => (
+                <div
+                  className={`bg-slate-200 p-3 mb-5 rounded-lg ${
+                    findItem(review) ? "border border-black" : ""
+                  }`}
+                  onClick={(e) => handleClick(review)}
+                >
+                  <option
+                    key={index}
+                    value={index}
+                    className="text-xl font-bold"
+                  >
+                    {review.expert_id}
+                  </option>
+                  <div>{review.summary}</div>
+                  <div className="font-bold">Rating: {review.expertScore}</div>
+                </div>
+              ))}
             <div
               onClick={handleSubmit}
               className="bg-blue-400 p-2 rounded-lg w-40 text-center cursor-pointer hover:bg-blue-500 mb-10"
